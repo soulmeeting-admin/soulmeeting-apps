@@ -1,0 +1,55 @@
+<title>لقاء الروح v3 معاينة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="shared/kit.css">
+<style>
+.wrap{max-width:720px;margin:0 auto;padding-inline:16px;padding-block:28px 48px;display:flex;flex-direction:column;gap:18px}
+.top{display:flex;align-items:center;gap:12px}
+.top img{width:52px;height:52px;border-radius:50%;box-shadow:0 4px 12px -4px rgba(138,100,23,.6)}
+.top h1{font-size:22px;color:var(--gold-deep)}
+.top p{margin:0;font-size:13px;color:var(--ink-faint)}
+.apps{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.app-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.app-card .hd{padding:14px 16px;background:var(--hero);color:#4a3510}
+.app-card .hd h2{font-size:18px}
+.app-card .hd p{margin:2px 0 0;font-size:12.5px;opacity:.85}
+.links{display:flex;flex-direction:column;gap:8px;padding:14px 16px}
+.lk{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--line);border-radius:12px;padding:11px 14px;text-decoration:none;color:var(--ink);font-weight:700;transition:all .25s var(--spring)}
+.lk:hover{border-color:var(--gold);background:var(--gold-soft)}
+.lk small{display:block;font-weight:500;font-size:12px;color:var(--ink-faint)}
+.lk span.go{color:var(--gold-deep);font-size:18px}
+.tips{font-size:13.5px;color:var(--ink-soft)}
+.tips li{margin-bottom:4px}
+</style>
+
+<div class="wrap">
+  <div class="top"><img src="shared/assets/coin.png" alt="شعار لقاء الروح"><div><h1>لقاء الروح · النسخة الجديدة</h1><p>معاينة الواجهات الأربعة ببيانات تجريبية</p></div></div>
+
+  <div class="apps">
+    <div class="app-card">
+      <div class="hd"><h2>الأكاديمية</h2><p>الكورسات والدروس، مربوطة بالـ hub</p></div>
+      <div class="links">
+        <a class="lk" href="academy/index.html#home"><div>واجهة العضو<small>موبايل · الكورسات والدروس والجسر لمساعد التناغم</small></div><span class="go">←</span></a>
+        <a class="lk" href="academy/admin.html#overview"><div>لوحة الإدارة<small>الكورسات والأعضاء والتفعيل اليدوي والمدفوعات</small></div><span class="go">←</span></a>
+      </div>
+    </div>
+    <div class="app-card">
+      <div class="hd"><h2>مساعد التناغم</h2><p>ملف الشخص والخطة والمهام اليومية</p></div>
+      <div class="links">
+        <a class="lk" href="protocol/index.html#today"><div>واجهة العضو<small>موبايل · النهارده، المهام، ملفي، الخطة، التقدّم</small></div><span class="go">←</span></a>
+        <a class="lk" href="protocol/admin.html#overview"><div>لوحة الإدارة<small>بناء التمارين والمشتركين والتذكيرات</small></div><span class="go">←</span></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card tips">
+    <b>إزاي تراجع</b>
+    <ul>
+      <li>واجهات الأعضاء معمولة للموبايل. افتحها من التليفون.</li>
+      <li>في «حسابي» جوه أي واجهة عضو فيه «معاينة الحالات»: تقدر تشوف العضو المشترك، والمجاني، واللي اشتراكه خلص.</li>
+      <li>في مساعد التناغم جرّب «حوّل ملفك لخطة» وبعدها «جرّب برد تجريبي» عشان تشوف الرحلة كاملة.</li>
+      <li>كل المحتوى (الكورسات والتمارين والأسماء) تجريبي، ومش مربوط بقاعدة بيانات لسه.</li>
+    </ul>
+  </div>
+</div>

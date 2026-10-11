@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>لوحة الأكاديمية — لقاء الروح</title>
+<meta name="theme-color" content="#f7f2e8">
+<link rel="icon" href="../shared/assets/coin-96.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Sans+Arabic:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/kit.css">
+<style>
+/* page-specific additions only */
+.side .brand img{width:40px;height:40px}
+.side .cta{width:100%;margin:0 0 16px;padding:12px 14px;font-size:14.5px;border-radius:12px}
+.side .cta svg{width:18px;height:18px}
+.side .nav svg{width:19px;height:19px;flex:0 0 auto}
+.side .nav .cnt{margin-inline-start:auto;background:var(--err);color:#fff;border-radius:99px;font-size:11px;min-width:20px;height:20px;line-height:20px;text-align:center;padding:0 6px;font-weight:700}
+.side .foot{margin-top:22px;font-size:11.5px;color:var(--ink-faint);line-height:1.6}
+.admin-mtop{align-items:center;gap:10px;margin-bottom:14px;position:sticky;top:0;z-index:30;background:var(--bg);padding:8px 0}
+.admin-mtop .iconbtn{width:44px;height:44px;justify-content:center;padding:0}
+.admin-mtop .iconbtn svg{width:22px;height:22px}
+.admin-mtop .mini{flex:1;font-weight:800;color:var(--gold-deep);font-size:15px}
+.admin-mtop .btn{padding:9px 14px;font-size:13.5px;min-height:44px}
+.navscrim{position:fixed;inset:0;background:rgba(50,38,12,.4);z-index:60;display:none}
+.navscrim.on{display:block}
+.btn.sm{min-height:40px}
+.btn{white-space:nowrap}
+.btn svg{width:18px;height:18px;flex:0 0 auto}
+.em{direction:ltr;unicode-bidi:isolate;display:inline-block}
+.toast{bottom:calc(20px + env(safe-area-inset-bottom))}
+.admin .head h1{font-size:23px;font-family:var(--f)}
+.admin .head .sub{font-size:13px;color:var(--ink-faint);margin-top:2px}
+.admin .head .acts{display:flex;gap:8px;flex-wrap:wrap}
+a.kpi{text-decoration:none;color:inherit;display:block;transition:transform .25s var(--spring),border-color .2s}
+a.kpi:hover{transform:translateY(-2px);border-color:var(--gold)}
+.kpi b{display:block;line-height:1.3;margin-top:2px}
+.kpi.gold{background:var(--gold-soft);border-color:#e6c47a}
+.kpi.warn b{color:var(--warn)}
+.kpi small{font-weight:600}
+
+/* activation hero */
+.activate{position:relative;overflow:hidden;border-radius:18px;padding:18px 20px;background:var(--hero);border:1px solid #d9a936;box-shadow:var(--shadow-lg);color:#4a3510;margin-bottom:18px}
+.activate::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 100% 0%,rgba(255,255,255,.5),transparent 60%);pointer-events:none}
+.activate>*{position:relative;z-index:1}
+.activate h2{font-size:19px;margin-bottom:2px}
+.activate p{margin:0 0 12px;font-size:13px;opacity:.82}
+.activate form{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1.4fr) auto;gap:10px;align-items:end}
+.activate .field{margin:0}
+.activate .field label{color:#5a4210}
+.activate .input,.activate .select{background:rgba(255,254,251,.92);border-color:#d9b25a}
+.activate .btn{background:linear-gradient(180deg,#3a2f1d,#241c0e);color:#fff8e6;min-height:44px;padding:11px 22px}
+.activate .grants{grid-column:1/-1;font-size:12.5px;opacity:.85;min-height:1.4em}
+@media(max-width:700px){.activate form{grid-template-columns:1fr}.activate .btn{width:100%}}
+
+.cols{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:14px;margin-bottom:14px}
+@media(max-width:980px){.cols{grid-template-columns:1fr}}
+.card h3{font-size:15px;margin-bottom:10px}
+.card + .card{margin-top:0}
+.cmp{display:flex;flex-direction:column;gap:12px}
+.cmp .r{display:grid;grid-template-columns:minmax(0,1fr) 44px;gap:4px 10px;align-items:center;font-size:13.5px}
+.cmp .r .bar{grid-column:1/2;height:8px}
+.cmp .r span:first-child{grid-column:1/2}
+.cmp .r b{grid-row:1/3;grid-column:2;text-align:end;color:var(--gold-deep)}
+.list{display:flex;flex-direction:column}
+.list .it{display:flex;align-items:center;gap:10px;padding:10px 2px;border-bottom:1px solid var(--line);width:100%;background:transparent;border-inline:0;border-top:0;text-align:start;cursor:pointer;color:inherit;min-height:48px}
+.list .it:last-child{border-bottom:0}
+.list .it:hover{background:#fffaf0}
+.list .it .nm{flex:1;min-width:0;font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.list .it .nm small{display:block;font-weight:400;color:var(--ink-faint);font-size:12px;direction:ltr;text-align:start;overflow:hidden;text-overflow:ellipsis}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--gold-soft);color:var(--gold-deep);display:grid;place-items:center;font-weight:800;font-size:14px;flex:0 0 auto;border:1px solid #e6c47a}
+
+.tbl td .who{display:flex;align-items:center;gap:10px}
+.tbl td .who b{display:block;font-size:14px;line-height:1.4}
+.tbl td .who small{display:block;color:var(--ink-faint);font-size:12px;direction:ltr;text-align:start}
+.tbl tr.rowlink{cursor:pointer}
+.tbl .pills{display:flex;gap:4px;flex-wrap:wrap}
+.chipbar{display:flex;gap:6px;flex-wrap:wrap}
+.chipbar .chip{min-height:36px}
+.tbl-wrap .tbl{min-width:720px}
+.empty-row{padding:26px;text-align:center;color:var(--ink-faint)}
+
+/* course cards */
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.ccard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;cursor:pointer;text-align:start;padding:0;display:flex;flex-direction:column;color:inherit;transition:transform .25s var(--spring)}
+.ccard:hover{transform:translateY(-2px)}
+.ccard .cv{height:78px;position:relative}
+.ccard .cv .pill{position:absolute;top:10px;inset-inline-start:10px;background:rgba(255,254,251,.92)}
+.ccard .bd{padding:12px 14px 14px;flex:1}
+.ccard h3{font-size:16px}
+.ccard p{margin:2px 0 10px;font-size:13px;color:var(--ink-soft)}
+.ccard .mt{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-faint);margin-bottom:6px}
+.ccard.new{border-style:dashed;border-color:var(--gold);background:transparent;box-shadow:none;align-items:center;justify-content:center;min-height:170px;color:var(--gold-deep);font-weight:700;gap:8px}
+.ccard.new svg{width:26px;height:26px}
+.swatches{display:flex;gap:8px;flex-wrap:wrap}
+.sw{width:44px;height:44px;border-radius:12px;border:2px solid transparent;cursor:pointer;padding:0}
+.sw.on{border-color:var(--ink);box-shadow:0 0 0 2px var(--surface) inset}
+.crumbs{font-size:13px;color:var(--ink-faint);margin-bottom:6px}
+.crumbs a{color:var(--gold-deep);text-decoration:none;font-weight:600}
+.edit-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 14px}
+@media(max-width:700px){.edit-grid{grid-template-columns:1fr}}
+
+.lrow{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line);background:var(--surface);transition:background .6s}
+.lrow:last-child{border-bottom:0}
+.lrow.flash{background:var(--gold-soft)}
+.lrow .no{width:30px;height:30px;border-radius:50%;background:var(--bg-2);color:var(--gold-deep);display:grid;place-items:center;font-weight:800;font-size:13px;flex:0 0 auto}
+.lrow .tx{flex:1;min-width:0}
+.lrow .tx b{display:block;font-size:14.5px;line-height:1.45}
+.lrow .tx .mt{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;align-items:center;font-size:12px;color:var(--ink-faint)}
+.lrow .acts{display:flex;gap:4px;align-items:center;flex:0 0 auto;flex-wrap:wrap;justify-content:flex-end}
+.ib{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);display:grid;place-items:center;cursor:pointer;padding:0;transition:all .2s}
+.ib:hover:not([disabled]){border-color:var(--gold);color:var(--gold-deep)}
+.ib[disabled]{opacity:.35;cursor:default}
+.ib svg{width:18px;height:18px}
+.ib.dn:hover{border-color:#e3c2bf;color:var(--err)}
+.cf{display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.cf .q{font-size:12.5px;color:var(--err);font-weight:600}
+@media(max-width:560px){.lrow{flex-wrap:wrap}.lrow .acts{width:100%;justify-content:flex-start;padding-inline-start:42px}}
+
+/* payments */
+.pcard{display:flex;gap:14px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--gold);border-radius:var(--r);padding:14px;box-shadow:var(--shadow)}
+.pcard + .pcard{margin-top:10px}
+.proof{width:48px;height:60px;border-radius:8px;border:1px dashed var(--line-strong);background:repeating-linear-gradient(45deg,var(--surface-2),var(--surface-2) 6px,var(--bg-2) 6px,var(--bg-2) 12px);display:grid;place-items:center;color:var(--ink-faint);flex:0 0 auto}
+.proof svg{width:20px;height:20px}
+.pcard .info{flex:1;min-width:200px}
+.pcard .info b{display:block}
+.pcard .amt{font-size:20px;font-weight:800;color:var(--gold-deep);white-space:nowrap}
+.pcard .acts{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+/* products */
+.prod{display:flex;flex-direction:column;gap:10px}
+.prod .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.prod h3{font-size:15.5px}
+.prod .price{font-weight:800;color:var(--gold-deep);font-size:18px;white-space:nowrap}
+.prod .g{display:flex;flex-direction:column;gap:6px}
+.prod .g div{display:flex;justify-content:space-between;gap:8px;font-size:13.5px;background:var(--surface-2);border-radius:10px;padding:7px 10px}
+.rules{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;font-size:13.5px;color:var(--ink-soft);margin-bottom:14px}
+.rules b{color:var(--ink)}
+.rules ul{margin:6px 0 0;padding-inline-start:18px}
+
+/* drawer + panel contents */
+.pscrim{position:fixed;inset:0;background:rgba(50,38,12,.42);z-index:80;opacity:0;pointer-events:none;transition:opacity .25s}
+.pscrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;bottom:0;inset-inline-end:0;width:min(470px,100vw);z-index:90;background:var(--surface);box-shadow:0 0 50px -10px rgba(50,38,12,.4);transform:translateX(-106%);transition:transform .4s var(--spring);overflow:auto;padding:18px 20px 30px;border-inline-start:1px solid var(--line)}
+.drawer.on{transform:translateX(0)}
+.pn-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.pn-head h2{font-size:18px;flex:1}
+.pn-head .x{margin-inline-start:auto}
+.sheet{text-align:start}
+.sheet .btn.sm,.drawer .btn.sm{min-height:40px}
+.ent{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface-2)}
+.ent + .ent{margin-top:8px}
+.ent .r1{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
+.ent .r2{font-size:12px;color:var(--ink-faint);margin:2px 0 8px}
+.ent .acts{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.okbox{text-align:center;padding:10px 0}
+.okbox .big{font-size:44px}
+.okbox h3{color:var(--ok);margin:6px 0}
+.footer-note{margin-top:34px;text-align:center;font-size:12px;color:var(--ink-faint)}
+.err-t{color:var(--err);font-size:12.5px;min-height:1.2em}
+.grantbox{background:var(--gold-soft);border-radius:10px;padding:8px 12px;font-size:12.8px;color:var(--gold-deep);margin-bottom:12px}
+</style>
+</head>
+<body>
+<div class="admin">
+  <aside class="side" id="side" aria-label="القائمة">
+    <div class="brand"><img src="../shared/assets/coin.png" alt="شعار لقاء الروح"><div><b>لوحة الأكاديمية</b><span>SOUL MEETING</span></div></div>
+    <button class="btn cta" id="navActivate" type="button"></button>
+    <nav class="nav" id="nav"></nav>
+    <div class="foot">المحتوى الحالي تجريبي</div>
+  </aside>
+  <div class="navscrim" id="navscrim"></div>
+  <main class="main">
+    <div class="admin-mtop">
+      <button class="iconbtn" id="menuBtn" type="button" aria-label="القائمة"></button>
+      <div class="mini">لوحة الأكاديمية</div>
+      <button class="btn sm" id="topActivate" type="button">تفعيل عميل جديد</button>
+    </div>
+    <div id="view" aria-live="polite"></div>
+    <div class="footer-note">المحتوى الحالي تجريبي</div>
+  </main>
+</div>
+<div class="pscrim" id="pscrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="لوحة جانبية"></aside>
+
+<script src="../shared/kit.js"></script>
+<script src="../shared/content-body.js"></script>
+<script src="../shared/data.js"></script>
+<script src="../shared/config.js"></script>
+<script src="../shared/vendor/supabase-2.45.4.min.js"></script>
+<script src="../shared/db-supabase.js"></script>
+<script>
+(function(){
+const {$, $$, esc:e, I, fmtShort, toast} = Kit;
+const J = a => a.join('');
+const view = $('#view');
+const PHONE = () => window.innerWidth <= 860;
+const num = n => `<span class="num">${n}</span>`;
+const money = (a,c) => `<span class="num">${Number(a).toLocaleString('en')} ${e(c)}</span>`;
+const SHORT = {free_body:'مجاني · الجسد', money_rec:'المال · مسجّل', money_live:'المال · live', proto_q:'ربع سنوي', proto_y:'سنوي', evenings:'الأمسيات'};
+const COVERS = ['linear-gradient(135deg,#e7d3a6,#b08429)','linear-gradient(135deg,#f3d98c,#8a6417)','linear-gradient(135deg,#d9c7a0,#6f6658)','linear-gradient(135deg,#cfe0d2,#3f7d55)','linear-gradient(135deg,#d6e3ea,#2f7f9a)'];
+const ico = {
+  up:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>',
+  down:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>',
+  edit:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>',
+  trash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg>',
+  x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  img:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg>'
+};
+const iconNav = {overview:I.chart, courses:I.book, members:I.users, payments:I.file, products:I.spark};
+
+/* ---------- data helpers ---------- */
+let CACHE = {};
+async function load(){
+  const [users, products, payments, courses, metrics, exercises] = await Promise.all([
+    DB.admin.users(), DB.admin.products(), DB.admin.payments(), DB.admin.courses(), DB.admin.metrics(), DB.admin.exercises()]);
+  const members = users.filter(u=>u.role!=='admin');
+  const umap = {}; users.forEach(u=>umap[u.id]=u);
+  const pmap = {}; products.forEach(p=>pmap[p.id]=p);
+  const cmap = {}; courses.forEach(c=>cmap[c.id]=c);
+  CACHE = {users, members, umap, products, pmap, payments, courses, cmap, metrics, exercises};
+  return CACHE;
+}
+function spaceName(s){
+  if(s==='protocol') return 'مساعد التناغم';
+  if(s==='community') return 'المجتمع';
+  if(s.startsWith('course:')){ const c=CACHE.cmap&&CACHE.cmap[s.slice(7)]; return 'كورس: '+(c?c.title:s.slice(7)); }
+  return s;
+}
+function grantsText(p){ return p.grants.map(g=>`${spaceName(g.space)} — ${g.days?g.days+' يوم':'للأبد'}`); }
+function stateOf(u){
+  const p=u.protocol;
+  if(!p.has) return {k:'free',cls:'mute',html:'مجاني'};
+  if(p.readOnly) return {k:'ro',cls:'err',html:'للقراءة فقط'};
+  if(p.daysLeft!==null && p.daysLeft<=7) return {k:'exp',cls:'warn',html:`ينتهي خلال ${num(p.daysLeft)} يوم`};
+  return {k:'active',cls:'ok',html:p.daysLeft===null?'فعّال':`فعّال · ${num(p.daysLeft)} يوم`};
+}
+const pill = (s)=>`<span class="pill ${s.cls}">${s.html}</span>`;
+function seenText(d){
+  if(!d) return 'لسه ما دخلش';
+  const n=Kit.daysBetween(d,new Date());
+  return n<=0?'اليوم':n===1?'أمس':n<8?`منذ ${n} أيام`:fmtShort(d);
+}
+function userProducts(u){
+  const ids=[...new Set(u.ents.map(x=>x.source))].filter(id=>CACHE.pmap[id]);
+  return ids.map(id=>`<span class="pill ${id==='free_body'?'mute':''}">${e(SHORT[id]||CACHE.pmap[id].name)}</span>`).join('') || '<span class="faint">—</span>';
+}
+const initial = u => e((u.name||u.email||'?').trim().charAt(0));
+const productOptions = (sel) => CACHE.products.map(p=>`<option value="${e(p.id)}" ${p.id===sel?'selected':''}>${e(p.name)} — ${p.price?p.price+' '+p.currency:'مجاني'}</option>`).join('');
+const validEmail = s => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(s);
+
+/* ---------- panel: side drawer on desktop / Kit.sheet on phone ---------- */
+let panelKind=null, panelCtx=null;
+function openPanel(html, ctx){
+  panelCtx = ctx||null;
+  if(PHONE()){
+    panelKind='sheet'; const m=Kit.sheet(html); return m;
+  }
+  panelKind='drawer';
+  const d=$('#drawer'); d.innerHTML=html; d.classList.add('on'); $('#pscrim').classList.add('on');
+  $$('[data-close]',d).forEach(b=>b.addEventListener('click',closePanel));
+  return d;
+}
+function closePanel(){ panelCtx=null; panelKind=null; $('#drawer').classList.remove('on'); $('#pscrim').classList.remove('on'); Kit.closeAll(); }
+$('#pscrim').addEventListener('click',closePanel);
+document.addEventListener('keydown',ev=>{ if(ev.key==='Escape'){ closePanel(); closeNav(); } });
+const panelHead = (title, sub) => `<div class="pn-head"><div style="flex:1;min-width:0"><h2>${title}</h2>${sub?`<div class="note">${sub}</div>`:''}</div><button class="ib x" data-close type="button" aria-label="إغلاق">${ico.x}</button></div>`;
+
+/* ---------- nav ---------- */
+const NAV=[['overview','نظرة عامة'],['courses','الكورسات'],['members','الأعضاء'],['payments','المدفوعات'],['products','الباقات']];
+function renderNav(){
+  const pend = CACHE.metrics ? CACHE.metrics.pendingPayments : 0;
+  $('#nav').innerHTML = NAV.map(([k,t])=>`<button type="button" data-nav="${k}">${iconNav[k]}<span>${t}</span>${k==='payments'&&pend?`<span class="cnt num">${pend}</span>`:''}</button>`).join('');
+  $$('#nav button').forEach(b=>b.addEventListener('click',()=>{ closeNav(); location.hash='#'+b.dataset.nav; }));
+  markNav();
+}
+function markNav(){
+  const p=(location.hash.slice(1)||'overview').split('/')[0]; const key=p==='course'?'courses':p;
+  $$('#nav button').forEach(b=>b.classList.toggle('on', b.dataset.nav===key));
+}
+$('#navActivate').innerHTML = I.plus+'<span>تفعيل عميل جديد</span>';
+$('#menuBtn').innerHTML = I.menu;
+function openNav(){ $('#side').classList.add('open'); $('#navscrim').classList.add('on'); }
+function closeNav(){ $('#side').classList.remove('open'); $('#navscrim').classList.remove('on'); }
+$('#menuBtn').addEventListener('click',openNav);
+$('#navscrim').addEventListener('click',closeNav);
+$('#navActivate').addEventListener('click',()=>{ closeNav(); openActivate(); });
+$('#topActivate').addEventListener('click',()=>openActivate());
+
+/* ---------- inline confirm ---------- */
+// <button data-act="x" data-id=".." data-arm="سؤال التأكيد"> → shows [نعم][إلغاء] in place
+document.addEventListener('click', ev=>{
+  const b = ev.target.closest('[data-act]'); if(!b) return;
+  if(b.dataset.arm){
+    const cf=b.closest('.cf'); if(!cf) return;
+    cf._orig = cf.innerHTML;
+    const attrs = Object.entries(b.dataset).filter(([k])=>k!=='arm').map(([k,v])=>`data-${k.replace(/[A-Z]/g,m=>'-'+m.toLowerCase())}="${e(v)}"`).join(' ');
+    cf.innerHTML = `<span class="q">${e(b.dataset.arm)}</span><button type="button" class="btn danger sm" ${attrs}>نعم</button><button type="button" class="btn ghost sm" data-unarm>إلغاء</button>`;
+    cf.querySelector('[data-unarm]').focus();
+    return;
+  }
+  run(b.dataset.act, b.dataset);
+});
+document.addEventListener('click', ev=>{
+  const u=ev.target.closest('[data-unarm]'); if(!u) return;
+  const cf=u.closest('.cf'); cf.innerHTML=cf._orig;
+});
+
+const ACT = {
+  async delLesson(d){ await DB.admin.deleteLesson(d.course,d.id); toast('اتحذف الدرس'); await refresh(); },
+  async moveLesson(d){ await DB.admin.moveLesson(d.course,d.id,+d.dir); flashId=d.id; await refresh(); },
+  async editLesson(d){ openLessonForm(d.course,d.id); },
+  async addLesson(d){ openLessonForm(d.course,null); },
+  async approve(d){ await DB.admin.approvePayment(d.id); toast('اتقبلت الدفعة واتفعّلت الباقة ✓'); await refresh(); },
+  async reject(d){ await DB.admin.rejectPayment(d.id); toast('اتسجّلت كمرفوضة'); await refresh(); },
+  async extend(d){ await DB.admin.extend(d.ent,+d.days); toast(`اتمدّت ${d.days} يوم ✓`); await afterMember(d.user); },
+  async revoke(d){ await DB.admin.revoke(d.ent); toast('اتسحبت الصلاحية'); await afterMember(d.user); },
+  async openMember(d){ openMember(d.id); },
+  async activate(d){ openActivate(d.product); }
+};
+async function run(name,d){ try{ await ACT[name](d); }catch(err){ console.error(err); toast('حصلت مشكلة، جرّب تاني'); } }
+async function afterMember(uid){ await refresh(); await openMember(uid); }
+document.addEventListener('click',ev=>{ const r=ev.target.closest('[data-open-member]'); if(r && !ev.target.closest('button,a,input,select')) openMember(r.dataset.openMember); });
+
+/* ---------- activation (key v1 flow) ---------- */
+function activationFields(prefEmail, prefProduct){
+  return `<div class="field"><label for="acEmail">إيميل العميل</label><input class="input" id="acEmail" type="email" inputmode="email" dir="ltr" style="text-align:start" placeholder="name@example.com" value="${e(prefEmail||'')}" autocomplete="off"></div>
+  <div class="field"><label for="acProd">الباقة</label><select class="select" id="acProd">${productOptions(prefProduct)}</select></div>`;
+}
+function grantPreview(root){
+  const p=CACHE.pmap[$('#acProd',root).value]; const box=$('.grants',root)||$('#acGrants',root); if(!p||!box) return;
+  box.innerHTML = 'هتفتح: '+grantsText(p).map(e).join(' · ');
+}
+async function submitActivation(root, onDone){
+  const email=$('#acEmail',root).value.trim(), pid=$('#acProd',root).value, err=$('.err-t',root);
+  if(!validEmail(email)){ err.textContent='اكتب إيميل صحيح'; $('#acEmail',root).focus(); return; }
+  err.textContent='';
+  const known = CACHE.members.some(u=>u.email.toLowerCase()===email.toLowerCase());
+  const u = await DB.admin.grant(email,pid);
+  await load(); renderNav();
+  onDone({user:u, product:CACHE.pmap[pid], isNew:!known});
+}
+function successHTML(r){
+  return `<div class="okbox"><div class="big pop">✅</div><h3>اتفعّل بنجاح</h3>
+    <p class="muted" style="margin:0 0 4px"><b dir="ltr">${e(r.user.email)}</b></p>
+    <p class="muted" style="margin:0 0 12px">${r.isNew?'عميل جديد اتسجّل — ':''}${e(r.product.name)}</p>
+    <div class="grantbox">${grantsText(r.product).map(e).join('<br>')}</div>
+    <div class="stack"><button class="btn block" type="button" data-act="openMember" data-id="${e(r.user.id)}">فتح ملف العضو</button>
+    <button class="btn ghost block" type="button" id="again">تفعيل عميل تاني</button></div></div>`;
+}
+function openActivate(prefProduct){
+  const html = panelHead('تفعيل عميل جديد','الإيميل + الباقة، والباقي علينا') +
+   `<form id="acForm" novalidate>${activationFields('',prefProduct||'money_rec')}<div class="grantbox" id="acGrants"></div><div class="err-t" role="alert"></div><button class="btn block" type="submit">فعّل دلوقتي</button></form>`;
+  const p=openPanel(html,{type:'activate'});
+  const form=$('#acForm',p); grantPreview(p);
+  $('#acProd',p).addEventListener('change',()=>grantPreview(p));
+  form.addEventListener('submit',async ev=>{ ev.preventDefault();
+    await submitActivation(p, r=>{ p.innerHTML = panelHead('تفعيل عميل جديد','')+successHTML(r);
+      $$('[data-close]',p).forEach(b=>b.addEventListener('click',closePanel));
+      $('#again',p).addEventListener('click',()=>openActivate(r.product.id));
+      refresh(); });
+  });
+  setTimeout(()=>{ const i=$('#acEmail',p); i&&i.focus({preventScroll:true}); },60);
+}
+
+/* ---------- member drawer ---------- */
+async function openMember(id){
+  await load();
+  const u=CACHE.users.find(x=>x.id===id); if(!u) return;
+  const st=stateOf(u);
+  const ents=u.ents.slice().sort((a,b)=>(a.space.localeCompare(b.space))||String(b.ends_at).localeCompare(String(a.ends_at)));
+  const entHTML = ents.length? ents.map(x=>{
+    const timed=!!x.ends_at, ended=timed && new Date(x.ends_at)<new Date();
+    const dl = timed? Math.ceil((new Date(x.ends_at)-new Date())/864e5):null;
+    const pr=CACHE.pmap[x.source];
+    return `<div class="ent"><div class="r1"><b>${e(spaceName(x.space))}</b>
+      ${!timed?'<span class="pill ok">للأبد</span>':ended?'<span class="pill err">انتهت</span>':dl<=7?`<span class="pill warn">باقي ${num(dl)} يوم</span>`:`<span class="pill ok">باقي ${num(dl)} يوم</span>`}</div>
+      <div class="r2">${pr?e(SHORT[pr.id]||pr.name):'يدوي'} · من ${fmtShort(x.starts_at)}${timed?' · '+(ended?'انتهت':'تنتهي')+' '+fmtShort(x.ends_at):''}</div>
+      <div class="acts cf">${timed?`<button type="button" class="btn soft sm" data-act="extend" data-ent="${e(x.id)}" data-days="90" data-user="${e(u.id)}">+ ${num(90)} يوم</button>`:''}
+      <button type="button" class="btn danger sm" data-act="revoke" data-ent="${e(x.id)}" data-user="${e(u.id)}" data-arm="سحب الصلاحية؟">سحب</button></div></div>`;
+  }).join('') : '<div class="empty-row">لا توجد صلاحيات</div>';
+  const html = panelHead(e(u.name), `<span class="em">${e(u.email)}</span>`) + `
+    <div class="row" style="flex-wrap:wrap;margin-bottom:14px">${pill(st)}<span class="note">آخر ظهور: ${seenText(u.last_seen)}</span><span class="note">· ${num(u.entries)} تمرين مسجّل</span></div>
+    <div class="section-title" style="margin-top:6px">الصلاحيات <small>${num(ents.length)}</small></div>
+    ${entHTML}
+    <div class="section-title">إضافة باقة</div>
+    <form id="mgForm" class="card" style="box-shadow:none;background:var(--surface-2)" novalidate>
+      <div class="field"><label for="mgEmail">الإيميل</label><input class="input" id="mgEmail" dir="ltr" style="text-align:start" value="${e(u.email)}" readonly></div>
+      <div class="field"><label for="acProd">الباقة</label><select class="select" id="acProd">${productOptions('proto_q')}</select></div>
+      <div class="grantbox" id="acGrants"></div><div class="err-t"></div>
+      <button class="btn block" type="submit">إضافة الباقة</button></form>
+    <p class="note" style="margin-top:14px">خصوصية: مش بنعرض محتوى تمارين العضو، عدد التمارين بس.</p>`;
+  const p=openPanel(html,{type:'member',id});
+  grantPreview(p);
+  $('#acProd',p).addEventListener('change',()=>grantPreview(p));
+  $('#mgForm',p).addEventListener('submit',async ev=>{ ev.preventDefault();
+    await DB.admin.grant(u.email,$('#acProd',p).value); toast('اتضافت الباقة ✓'); await refresh(); await openMember(id); });
+}
+
+/* ---------- lesson form ---------- */
+function openLessonForm(courseId, lessonId){
+  const c=CACHE.cmap[courseId]; const l=lessonId? c.lessons.find(x=>x.id===lessonId):{title:'',minutes:15,video:'',exercise:'',body:''};
+  const exOpts = '<option value="">— بدون تمرين —</option>'+CACHE.exercises.map(x=>`<option value="${e(x.id)}" ${x.id===l.exercise?'selected':''}>${e(x.title)}</option>`).join('');
+  const html = panelHead(lessonId?'تعديل الدرس':'درس جديد', e(c.title)) + `<form id="lsForm" novalidate>
+    <div class="field"><label for="lsTitle">عنوان الدرس</label><input class="input" id="lsTitle" value="${e(l.title)}" maxlength="120"></div>
+    <div class="field"><label for="lsMin">المدة (دقائق)</label><input class="input" id="lsMin" type="number" min="1" max="600" inputmode="numeric" value="${e(l.minutes)}"></div>
+    <div class="field"><label for="lsVid">رابط الفيديو (YouTube / Vimeo / Bunny)</label><input class="input" id="lsVid" dir="ltr" style="text-align:start" placeholder="https://" value="${e(l.video)}"><span class="note">الرفع الفعلي هنحدد استضافته بعدين — الصق الرابط دلوقتي.</span></div>
+    <div class="field"><label for="lsBody">وصف الدرس</label><textarea class="textarea" id="lsBody">${e(l.body)}</textarea></div>
+    <div class="field"><label for="lsEx">التمرين المرتبط في مساعد التناغم</label><select class="select" id="lsEx">${exOpts}</select></div>
+    <div class="err-t" role="alert"></div>
+    <div class="row"><button class="btn" style="flex:1" type="submit">حفظ الدرس</button><button class="btn ghost" type="button" data-close>إلغاء</button></div></form>`;
+  const p=openPanel(html,{type:'lesson'});
+  $('#lsForm',p).addEventListener('submit',async ev=>{ ev.preventDefault();
+    const title=$('#lsTitle',p).value.trim(), vid=$('#lsVid',p).value.trim(), min=parseInt($('#lsMin',p).value,10), err=$('.err-t',p);
+    if(!title){ err.textContent='اكتب عنوان الدرس'; return; }
+    if(!(min>0)){ err.textContent='المدة لازم تكون رقم أكبر من صفر'; return; }
+    if(vid && !/^https?:\/\//i.test(vid)){ err.textContent='الرابط لازم يبدأ بـ https://'; return; }
+    const payload={title, minutes:min, video:vid, body:$('#lsBody',p).value.trim(), exercise:$('#lsEx',p).value||null};
+    if(lessonId) payload.id=lessonId;
+    await DB.admin.saveLesson(courseId,payload);
+    if(!lessonId){ await load(); const nl=CACHE.cmap[courseId].lessons; flashId=nl[nl.length-1].id; }
+    closePanel(); toast(lessonId?'اتحفظ التعديل ✓':'اتضاف الدرس ✓'); await refresh();
+  });
+  setTimeout(()=>{ const i=$('#lsTitle',p); i&&i.focus({preventScroll:true}); },60);
+}
+
+/* ---------- views ---------- */
+let flashId=null;
+const head = (title, sub, acts='') => `<div class="head"><div><h1>${title}</h1>${sub?`<div class="sub">${sub}</div>`:''}</div><div class="acts">${acts}</div></div>`;
+
+async function vOverview(el){
+  await load(); renderNav();
+  const m=CACHE.metrics;
+  const expiring = CACHE.members.filter(u=>stateOf(u).k==='exp').sort((a,b)=>a.protocol.daysLeft-b.protocol.daysLeft);
+  const pending = CACHE.payments.filter(p=>p.status==='pending');
+  const comp = CACHE.courses.map(c=>{ const v=m.lessonCompletion[c.id]||0; return `<div class="r"><span>${e(c.title)}</span><b class="num">${Math.round(v*100)}%</b><div class="bar"><i style="width:${Math.round(v*100)}%"></i></div></div>`; });
+  el.innerHTML = head('نظرة عامة','أهلًا يا فاروق — ده حال الأكاديمية النهارده') +
+  `<section class="activate" aria-label="تفعيل عميل جديد"><h2>تفعيل عميل جديد</h2><p>العميل حوّل؟ اكتب إيميله واختار الباقة، وبتتفتحله صلاحياته في ثواني.</p>
+    <form id="ovForm" novalidate>${activationFields('', 'money_rec')}<button class="btn" type="submit">فعّل دلوقتي</button><div class="grants" id="acGrants"></div><div class="err-t" role="alert" style="grid-column:1/-1;color:#7b1f1f"></div></form></section>
+   <div class="kpis">
+    <a class="kpi" href="#members"><small>الأعضاء</small><b class="num">${m.members}</b></a>
+    <a class="kpi" href="#members"><small>مساعد التناغم فعّال</small><b class="num">${m.protocolActive}</b></a>
+    <a class="kpi ${m.expiring7?'warn':''}" href="#members"><small>ينتهي خلال 7 أيام</small><b class="num">${m.expiring7}</b></a>
+    <a class="kpi ${m.pendingPayments?'gold':''}" href="#payments"><small>مدفوعات منتظرة</small><b class="num">${m.pendingPayments}</b></a>
+   </div>
+   <div class="cols">
+    <div class="card"><div class="between"><h3>النشاط الأسبوعي</h3><span class="note">أعضاء نشطين / أسبوع</span></div>${Kit.barChart(m.weeklyActive,m.weeklyLabels,{height:150})}</div>
+    <div class="card"><h3>إتمام الدروس لكل كورس</h3><div class="cmp">${J(comp)}</div></div>
+   </div>
+   <div class="cols" style="margin-bottom:0">
+    <div class="card"><div class="between"><h3>قربت تنتهي</h3><span class="note">${num(expiring.length)} عضو</span></div>
+      <div class="list">${expiring.length?J(expiring.slice(0,6).map(u=>`<button type="button" class="it" data-act="openMember" data-id="${e(u.id)}"><span class="avatar">${initial(u)}</span><span class="nm">${e(u.name)}<small>${e(u.email)}</small></span>${pill(stateOf(u))}</button>`)):'<div class="empty-row">مفيش اشتراكات قربت تنتهي</div>'}</div></div>
+    <div class="card"><div class="between"><h3>مدفوعات منتظرة</h3><a href="#payments" class="note" style="color:var(--gold-deep);font-weight:700">عرض الكل</a></div>
+      <div class="list">${pending.length?J(pending.map(p=>{const u=CACHE.umap[p.user_id]; const pr=CACHE.pmap[p.product_id]; return `<a class="it" href="#payments" style="text-decoration:none"><span class="avatar">${u?initial(u):'؟'}</span><span class="nm">${e(u?u.name:'—')}<small style="direction:rtl">${e(pr?SHORT[pr.id]||pr.name:'')}</small></span><b class="num">${Number(p.amount).toLocaleString('en')} ${e(p.currency)}</b></a>`;})):'<div class="empty-row">مفيش مدفوعات منتظرة</div>'}</div></div>
+   </div>`;
+  const f=$('#ovForm',el); grantPreview(el);
+  $('#acProd',el).addEventListener('change',()=>grantPreview(el));
+  f.addEventListener('submit',async ev=>{ ev.preventDefault();
+    await submitActivation(el,r=>{ const p=openPanel(panelHead('اتفعّل','')+successHTML(r),{type:'activate'});
+      $('#again',p).addEventListener('click',()=>openActivate(r.product.id)); refresh(); });
+  });
+}
+
+async function vCourses(el){
+  await load(); renderNav();
+  el.innerHTML = head('الكورسات','اضغط على كورس لتعديل بياناته ودروسه') +
+   `<div class="cgrid">${J(CACHE.courses.map(c=>{ const v=Math.round((CACHE.metrics.lessonCompletion[c.id]||0)*100);
+     return `<button type="button" class="ccard" data-go="course/${e(c.id)}"><div class="cv" style="background:${e(c.cover)}"><span class="pill ${c.is_free?'ok':''}">${c.is_free?'مجاني':'مدفوع'}</span></div>
+      <div class="bd"><h3>${e(c.title)}</h3><p>${e(c.tagline||'')}</p><div class="mt"><span>${num(c.lessons.length)} درس</span><span>إتمام ${num(v+'%')}</span></div><div class="bar"><i style="width:${v}%"></i></div></div></button>`; }))}
+    <button type="button" class="ccard new" id="newCourse">${I.plus}<span>كورس جديد</span></button></div>`;
+  $$('[data-go]',el).forEach(b=>b.addEventListener('click',()=>location.hash='#'+b.dataset.go));
+  $('#newCourse',el).addEventListener('click',async()=>{
+    const id='c_'+Math.random().toString(36).slice(2,8);
+    await DB.admin.saveCourse({id,title:'كورس جديد',tagline:'',is_free:false,cover:COVERS[0],lessons:[]});
+    location.hash='#course/'+id;
+  });
+}
+
+async function vCourse(el,[id]){
+  await load(); renderNav();
+  const c=CACHE.cmap[id];
+  if(!c){ el.innerHTML = head('الكورس مش موجود','')+`<a class="btn soft" href="#courses">رجوع للكورسات</a>`; return; }
+  let free=!!c.is_free, cover=c.cover;
+  const exName = x => { const ex=CACHE.exercises.find(q=>q.id===x); return ex?ex.title:x; };
+  const rows = c.lessons.length? c.lessons.map((l,i)=>`<div class="lrow ${l.id===flashId?'flash':''}" data-lesson="${e(l.id)}"><span class="no num">${i+1}</span>
+     <div class="tx"><b>${e(l.title)}</b><div class="mt"><span>${num(l.minutes)} د</span>${l.video?'<span class="pill ok">فيديو</span>':'<span class="pill mute">بدون فيديو</span>'}${l.exercise?`<span class="pill">${e(exName(l.exercise))}</span>`:''}</div></div>
+     <div class="acts cf"><button type="button" class="ib" data-act="moveLesson" data-course="${e(c.id)}" data-id="${e(l.id)}" data-dir="-1" aria-label="تحريك لأعلى" ${i===0?'disabled':''}>${ico.up}</button>
+     <button type="button" class="ib" data-act="moveLesson" data-course="${e(c.id)}" data-id="${e(l.id)}" data-dir="1" aria-label="تحريك لأسفل" ${i===c.lessons.length-1?'disabled':''}>${ico.down}</button>
+     <button type="button" class="ib" data-act="editLesson" data-course="${e(c.id)}" data-id="${e(l.id)}" aria-label="تعديل">${ico.edit}</button>
+     <button type="button" class="ib dn" data-act="delLesson" data-course="${e(c.id)}" data-id="${e(l.id)}" data-arm="حذف الدرس؟" aria-label="حذف">${ico.trash}</button></div></div>`).join('')
+    : '<div class="empty"><div class="big">📚</div>لسه مفيش دروس — ضيف أول درس</div>';
+  el.innerHTML = `<div class="crumbs"><a href="#courses">الكورسات</a> / ${e(c.title)}</div>` + head(e(c.title),`${num(c.lessons.length)} درس`,`<button class="btn" type="button" data-act="addLesson" data-course="${e(c.id)}">${I.plus} درس جديد</button>`) +
+  `<div class="card" style="margin-bottom:16px"><h3>بيانات الكورس</h3><div class="edit-grid">
+     <div class="field"><label for="cTitle">عنوان الكورس</label><input class="input" id="cTitle" value="${e(c.title)}"></div>
+     <div class="field"><label for="cTag">الوصف المختصر</label><input class="input" id="cTag" value="${e(c.tagline||'')}"></div></div>
+     <div class="field"><label>غلاف الكورس</label><div class="swatches" id="sws">${COVERS.map(g=>`<button type="button" class="sw ${g===cover?'on':''}" style="background:${g}" data-cover="${g}" aria-label="لون الغلاف"></button>`).join('')}</div></div>
+     <div class="row" style="margin-bottom:14px"><button type="button" class="switch ${free?'on':''}" id="cFree" role="switch" aria-checked="${free}" aria-label="كورس مجاني"><i></i></button><span>كورس مجاني (متاح مع التسجيل)</span></div>
+     <button class="btn" type="button" id="saveCourse">حفظ بيانات الكورس</button></div>
+   <div class="section-title" style="margin-top:6px">الدروس <small>الترتيب بالأسهم</small></div>
+   <div class="tbl-wrap" style="min-width:0">${rows}</div>`;
+  $('#cFree',el).addEventListener('click',ev=>{ free=!free; ev.currentTarget.classList.toggle('on',free); ev.currentTarget.setAttribute('aria-checked',free); });
+  $$('#sws .sw',el).forEach(b=>b.addEventListener('click',()=>{ cover=b.dataset.cover; $$('#sws .sw',el).forEach(x=>x.classList.toggle('on',x===b)); }));
+  $('#saveCourse',el).addEventListener('click',async()=>{
+    const t=$('#cTitle',el).value.trim(); if(!t){ toast('اكتب عنوان الكورس'); return; }
+    await DB.admin.saveCourse({id:c.id,title:t,tagline:$('#cTag',el).value.trim(),is_free:free,cover});
+    toast('اتحفظ الكورس ✓'); await refresh();
+  });
+  if(flashId){ const fid=flashId; setTimeout(()=>{ const r=$(`[data-lesson="${fid}"]`,el); r&&r.classList.remove('flash'); },1100); flashId=null; }
+}
+
+let memberFilter='all', memberQ='';
+async function vMembers(el){
+  await load(); renderNav();
+  const filters=[['all','الكل'],['active','فعّال'],['exp','قارب ينتهي'],['ro','للقراءة فقط'],['free','مجاني']];
+  el.innerHTML = head('الأعضاء',`<span class="num">${CACHE.members.length}</span> عضو`,`<button class="btn" type="button" id="mAct">${I.plus} تفعيل عميل جديد</button>`) +
+   `<div class="toolbar"><input class="input" id="mq" type="search" placeholder="ابحث بالاسم أو الإيميل" aria-label="بحث" value="${e(memberQ)}"><div class="chipbar">${filters.map(([k,t])=>`<button type="button" class="chip ${memberFilter===k?'on':''}" data-f="${k}">${t}</button>`).join('')}</div></div>
+    <div class="tbl-wrap"><table class="tbl"><thead><tr><th>العضو</th><th>الباقات</th><th>مساعد التناغم</th><th>آخر ظهور</th><th></th></tr></thead><tbody id="mbody"></tbody></table></div>`;
+  const draw=()=>{
+    const q=memberQ.trim().toLowerCase();
+    const list=CACHE.members.filter(u=>(memberFilter==='all'||stateOf(u).k===memberFilter)&&(!q||u.name.toLowerCase().includes(q)||u.email.toLowerCase().includes(q)));
+    $('#mbody',el).innerHTML = list.length? J(list.map(u=>`<tr class="rowlink" data-open-member="${e(u.id)}"><td><div class="who"><span class="avatar">${initial(u)}</span><div><b>${e(u.name)}</b><small>${e(u.email)}</small></div></div></td>
+      <td><div class="pills">${userProducts(u)}</div></td><td>${pill(stateOf(u))}</td><td class="muted">${seenText(u.last_seen)}</td>
+      <td><button type="button" class="btn soft sm" data-act="openMember" data-id="${e(u.id)}">فتح</button></td></tr>`)) : '<tr><td colspan="5" class="empty-row">مفيش نتايج</td></tr>';
+  };
+  draw();
+  $('#mq',el).addEventListener('input',ev=>{ memberQ=ev.target.value; draw(); });
+  $$('[data-f]',el).forEach(b=>b.addEventListener('click',()=>{ memberFilter=b.dataset.f; $$('[data-f]',el).forEach(x=>x.classList.toggle('on',x===b)); draw(); }));
+  $('#mAct',el).addEventListener('click',()=>openActivate());
+}
+
+async function vPayments(el){
+  await load(); renderNav();
+  const pend=CACHE.payments.filter(p=>p.status==='pending'), hist=CACHE.payments.filter(p=>p.status!=='pending');
+  const who=p=>{ const u=CACHE.umap[p.user_id]; return u?`<b>${e(u.name)}</b><span class="note" style="display:block"><span class="em">${e(u.email)}</span></span>`:'<b>—</b>'; };
+  const pname=p=>{ const pr=CACHE.pmap[p.product_id]; return pr?e(pr.name):e(p.product_id); };
+  el.innerHTML = head('المدفوعات','التحويلات اليدوية — راجع الإيصال ثم اقبل أو ارفض') +
+   `<div class="section-title" style="margin-top:0">منتظرة المراجعة <small>${num(pend.length)}</small></div>` +
+   (pend.length? J(pend.map(p=>`<div class="pcard"><div class="proof" title="صورة الإيصال (placeholder)">${ico.img}</div>
+      <div class="info">${who(p)}<span class="muted" style="font-size:13px">${pname(p)}</span><div class="row" style="margin-top:4px;gap:6px;flex-wrap:wrap"><span class="pill mute">${e(p.method)}</span><span class="note">${fmtShort(p.created_at)}</span></div></div>
+      <div class="amt">${money(p.amount,p.currency)}</div>
+      <div class="acts"><button type="button" class="btn ok sm" data-act="approve" data-id="${e(p.id)}">قبول وتفعيل</button><span class="cf"><button type="button" class="btn danger sm" data-act="reject" data-id="${e(p.id)}" data-arm="رفض الدفعة؟">رفض</button></span></div></div>`))
+    : '<div class="card empty"><div class="big">✨</div>مفيش مدفوعات منتظرة. كله تمام.</div>') +
+   `<div class="section-title">السجل <small>${num(hist.length)}</small></div>
+    <div class="tbl-wrap"><table class="tbl"><thead><tr><th>العضو</th><th>الباقة</th><th>المبلغ</th><th>الطريقة</th><th>التاريخ</th><th>الحالة</th></tr></thead><tbody>
+    ${J(hist.map(p=>`<tr><td>${who(p)}</td><td>${pname(p)}</td><td>${money(p.amount,p.currency)}</td><td>${e(p.method)}</td><td class="muted">${fmtShort(p.created_at)}</td><td>${p.status==='approved'?'<span class="pill ok">اتقبلت</span>':'<span class="pill err">مرفوضة</span>'}</td></tr>`))}
+    </tbody></table></div>`;
+}
+
+async function vProducts(el){
+  await load(); renderNav();
+  el.innerHTML = head('الباقات','إيه اللي بتفتحه كل باقة — للاطلاع فقط') +
+   `<div class="rules"><b>قواعد الصلاحيات</b><ul>
+     <li>الكورس المجاني بيفتح الكورس التأسيسي <b>للأبد</b>.</li>
+     <li>أي كورس مدفوع بيفتح الكورس للأبد + <b>مساعد التناغم والمجتمع لمدة 90 يوم</b>.</li>
+     <li>اشتراك مساعد التناغم (ربع سنوي أو سنوي) بيشمل المجتمع.</li>
+     <li>لما اشتراك المساعد يخلص: يتحول <b>للقراءة فقط</b> — الملف والمهام القديمة محفوظين.</li></ul></div>
+    <div class="cgrid">${J(CACHE.products.map(p=>`<div class="card prod"><div class="top"><h3>${e(p.name)}</h3><div class="price">${p.price?money(p.price,p.currency):'مجاني'}</div></div>
+      <div class="g">${J(p.grants.map(g=>`<div><span>${e(spaceName(g.space))}</span><b>${g.days?num(g.days)+' يوم':'للأبد'}</b></div>`))}</div>
+      <button type="button" class="btn soft sm" data-act="activate" data-product="${e(p.id)}">تفعيل لعميل</button></div>`))}</div>`;
+}
+
+/* ---------- boot / router ---------- */
+const routes = {
+  overview:(el)=>guard(vOverview,el), courses:(el)=>guard(vCourses,el),
+  course:(el,rest)=>guard(vCourse,el,rest), members:(el)=>guard(vMembers,el),
+  payments:(el)=>guard(vPayments,el), products:(el)=>guard(vProducts,el)
+};
+async function guard(fn,el,rest){ try{ await fn(el,rest||[]); }catch(err){ console.error(err); el.innerHTML='<div class="card empty">حصلت مشكلة في تحميل الصفحة</div>'; } }
+async function refresh(){
+  const [path,...rest]=(location.hash.slice(1)||'overview').split('/');
+  await (routes[path]||routes.overview)(view,rest);
+  if(panelCtx && panelCtx.type==='member' && false) {}
+}
+Kit.router(routes, view, 'overview');
+document.addEventListener('DOMContentLoaded',()=>{});
+window.addEventListener('hashchange',()=>{ closePanel(); closeNav(); markNav(); });
+load().then(renderNav);
+window.addEventListener('resize',()=>{ if(!PHONE()) closeNav(); });
+})();
+</script>
+</body>
+</html>

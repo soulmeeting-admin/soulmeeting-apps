@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>أكاديمية لقاء الروح</title>
+<meta name="theme-color" content="#f7f2e8">
+<link rel="icon" href="../shared/assets/coin-96.png">
+<link rel="apple-touch-icon" href="../shared/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Sans+Arabic:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/kit.css">
+<style>
+  .topbar .streak{flex:0 0 auto}
+  .hi{margin:2px 2px 14px}
+  .hi small{display:block;color:var(--ink-faint);font-size:13px}
+  .hi h1{font-size:23px}
+  .hero .kick{font-size:12px;font-weight:700;letter-spacing:.3px;opacity:.75;display:flex;align-items:center;gap:6px}
+  .hero h2{margin:6px 0 2px;font-size:20px;position:relative;z-index:1}
+  .hero .sub{position:relative;z-index:1}
+  .hero .bar{background:rgba(74,53,16,.18);margin:12px 0 4px;position:relative;z-index:1}
+  .hero .bar i{background:linear-gradient(90deg,#6d4c10,#4a3510)}
+  .hero .btn{background:#3b2a0c;color:#fff4dc;box-shadow:0 8px 18px -10px #3b2a0c;margin-top:12px;position:relative;z-index:1}
+  .hero .coinbg{position:absolute;inset-inline-start:-34px;bottom:-40px;width:150px;height:150px;opacity:.14;background:url(../shared/assets/coin.png) center/cover;border-radius:50%;z-index:0}
+  .statrow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+  .statrow .stat{text-align:center;padding:10px 6px}
+  .statrow .stat b{display:block;font-size:21px;line-height:1.4}
+  .week-card{margin-top:12px;padding:12px 14px}
+  .week-card .between{margin-bottom:10px;font-size:13px;font-weight:700}
+  .ccard{display:flex;gap:14px;align-items:center;width:100%;text-align:start;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:12px;box-shadow:var(--shadow);cursor:pointer;color:inherit;text-decoration:none;transition:transform .3s var(--spring),border-color .2s}
+  .ccard:hover{transform:translateY(-2px);border-color:var(--line-strong)}
+  .ccard + .ccard{margin-top:10px}
+  .ccard .thumb{flex:0 0 auto;width:62px;height:62px;border-radius:14px;position:relative;display:grid;place-items:center;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
+  .ccard .thumb svg{width:24px;height:24px;color:#fff;filter:drop-shadow(0 1px 2px rgba(60,40,5,.45))}
+  .ccard .txt{flex:1;min-width:0}
+  .ccard .txt b{display:block;font-size:15px;line-height:1.5}
+  .ccard .txt > span{display:block;font-size:12.3px;color:var(--ink-faint)}
+  .ccard .txt .pill{margin-top:6px}
+  .ccard.locked .thumb{filter:saturate(.55)}
+  .ccard .go{flex:0 0 auto}
+  .cover{position:relative;border-radius:20px;padding:22px 18px 18px;min-height:150px;color:#fff;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:var(--shadow-lg)}
+  .cover::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(40,28,6,0) 20%,rgba(40,28,6,.55));}
+  .cover::after{display:none;content:"";position:absolute;inset-inline-end:-30px;top:-30px;width:150px;height:150px;border-radius:50%;background:url(../shared/assets/coin.png) center/cover;opacity:.22}
+  .cover > *{position:relative;z-index:1}
+  .cover h1{font-family:var(--f-quote);font-size:27px;line-height:1.4;text-shadow:0 2px 10px rgba(40,28,6,.5)}
+  .cover p{margin:2px 0 0;font-size:14px;opacity:.95;text-shadow:0 1px 6px rgba(40,28,6,.5)}
+  .backlink{display:inline-flex;align-items:center;gap:6px;border:0;background:transparent;color:var(--ink-soft);font-size:13.5px;font-weight:600;padding:8px 4px;margin-bottom:6px;cursor:pointer;min-height:40px}
+  .backlink svg{width:16px;height:16px;transform:scaleX(-1)}
+  .prog{display:flex;align-items:center;gap:14px}
+  .prog .bar{margin:6px 0}
+  .lrow{display:flex;align-items:center;gap:12px;width:100%;text-align:start;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:12px 14px;cursor:pointer;color:inherit;text-decoration:none;transition:all .3s var(--spring);min-height:64px}
+  .lrow + .lrow{margin-top:8px}
+  .lrow:hover{border-color:var(--line-strong);transform:translateY(-1px)}
+  .lrow .n{flex:0 0 auto;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:13px;background:var(--bg-2);color:var(--ink-soft)}
+  .lrow .n svg{width:16px;height:16px}
+  .lrow.done .n{background:var(--gold);color:#fff}
+  .lrow.cur{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
+  .lrow.cur .n{background:var(--gold-deep);color:#fff}
+  .lrow.lk{opacity:.78}
+  .lrow .tt{flex:1;min-width:0}
+  .lrow .tt b{display:block;font-size:14.5px;line-height:1.5}
+  .lrow .tt > span{font-size:12px;color:var(--ink-faint);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .lrow .tag{color:var(--gold-deep);font-weight:700}
+  .video{position:relative;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#2c2720;box-shadow:var(--shadow-lg)}
+  .video iframe,.video video{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .video .poster{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:0;width:100%;color:#fff;text-align:center;padding:16px}
+  .video .poster::before{content:"";position:absolute;inset:0;background:rgba(40,28,6,.38)}
+  .video .poster > *{position:relative}
+  .video .play{width:62px;height:62px;border-radius:50%;background:rgba(255,253,248,.95);color:var(--gold-deep);display:grid;place-items:center;box-shadow:0 10px 26px -8px rgba(0,0,0,.5);transition:transform .3s var(--spring)}
+  .video button.poster{cursor:pointer}
+  .video button.poster:hover .play{transform:scale(1.08)}
+  .video .play svg{width:26px;height:26px;margin-inline-start:-3px;transform:scaleX(-1)}
+  .video .poster .soon{font-family:var(--f-quote);font-size:21px;line-height:1.5;text-shadow:0 2px 8px rgba(40,28,6,.5)}
+  .video .poster small{font-size:12.5px;opacity:.9}
+  .lesson-h{margin:16px 2px 4px;font-size:21px}
+  .lesson-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 2px 8px;font-size:12.5px;color:var(--ink-faint)}
+  .lesson-body{margin:0 2px;color:var(--ink-soft);line-height:1.9}
+  .bridge{margin-top:14px;display:flex;gap:12px;align-items:flex-start;background:linear-gradient(180deg,#fffaf0,#faf1da);border:1px solid #e6c47a;border-radius:var(--r);padding:14px}
+  .bridge .ic{flex:0 0 auto;width:40px;height:40px;border-radius:12px;background:var(--gold-soft);display:grid;place-items:center;font-size:20px}
+  .bridge .tx{flex:1;min-width:0}
+  .bridge b{display:block;font-size:14.5px}
+  .bridge .hint{font-size:12.5px;color:var(--ink-soft);margin:2px 0 10px}
+  .done-bar{margin-top:16px;display:flex;flex-direction:column;gap:10px}
+  .done-state{display:flex;align-items:center;gap:10px;background:var(--ok-soft);color:var(--ok);border-radius:var(--r);padding:12px 14px;font-weight:700;font-size:14px}
+  .done-state svg{width:20px;height:20px}
+  .done-state .btn{margin-inline-start:auto}
+  .pager{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+  .btn.lg{padding:14px 20px;font-size:16px}
+  .lockbox{display:flex;gap:12px;align-items:center;background:var(--surface-2);border:1px dashed var(--line-strong);border-radius:var(--r);padding:14px;margin-top:14px}
+  .lockbox .ic{width:42px;height:42px;border-radius:12px;background:var(--bg-2);display:grid;place-items:center;color:var(--ink-soft);flex:0 0 auto}
+  .lockbox .ic svg{width:22px;height:22px}
+  .lockbox .tx{flex:1;min-width:0}
+  .lockbox b{display:block;font-size:14px}
+  .lockbox span{font-size:12.5px;color:var(--ink-soft)}
+  .sheet h3{font-size:19px;margin-bottom:2px}
+  .sheet .cvr{height:78px;border-radius:14px;margin:4px 0 12px;position:relative;display:grid;place-items:center;color:#fff}
+  .sheet .cvr svg{width:28px;height:28px;filter:drop-shadow(0 1px 3px rgba(40,28,6,.5))}
+  .sheet ul{margin:8px 0 0;padding:0;list-style:none}
+  .sheet li{display:flex;gap:8px;font-size:13.5px;padding:5px 0;color:var(--ink-soft)}
+  .sheet li::before{content:"✦";color:var(--gold)}
+  .prodline{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid var(--line);background:var(--surface-2);border-radius:var(--r-sm);font-size:13.5px;font-weight:600}
+  .prodline + .prodline{margin-top:8px}
+  .sheet .acts{display:flex;gap:10px;margin-top:16px}
+  .sheet .acts .btn{flex:1}
+  .who{display:flex;align-items:center;gap:14px}
+  .avatar{width:58px;height:58px;border-radius:50%;background:var(--hero);display:grid;place-items:center;font-family:var(--f-quote);font-size:28px;font-weight:700;color:#4a3510;border:1px solid #d9a936;box-shadow:var(--shadow-lg);flex:0 0 auto}
+  .who b{display:block;font-size:17px}
+  .who span{font-size:13px;color:var(--ink-faint);word-break:break-all}
+  .prow{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}
+  .prow:last-child{border-bottom:0;padding-bottom:0}
+  .prow:first-of-type{padding-top:0}
+  .prow .tx{flex:1;min-width:0}
+  .prow b{display:block;font-size:14px;line-height:1.5}
+  .prow span{font-size:12.3px;color:var(--ink-faint)}
+  .demo{border-style:dashed;background:var(--surface-2);box-shadow:none}
+  .demo h3{font-size:14px;color:var(--ink-soft)}
+  .demo .btns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0}
+  .demo .btns .btn{padding:9px 4px;font-size:13px}
+  .demo .btn.on{background:var(--gold-soft);color:var(--gold-deep);border-color:var(--gold)}
+  .allsum{text-align:center;padding:16px}
+  .allsum .big{font-size:36px}
+  .fadein{animation:fadein .45s ease both}
+  @keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .skeleton{height:120px;border-radius:18px;background:linear-gradient(90deg,var(--bg-2),var(--surface-2),var(--bg-2));background-size:200% 100%;animation:sk 1.2s linear infinite}
+  @keyframes sk{to{background-position:-200% 0}}
+  @media(max-width:360px){.statrow .stat b{font-size:18px}.cover h1{font-size:23px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <img src="../shared/assets/coin.png" alt="شعار لقاء الروح">
+      <div><b>أكاديمية لقاء الروح</b><span>إعادة التناغم</span></div>
+    </div>
+    <span id="topStreak"></span>
+  </header>
+  <main id="view" aria-live="polite"></main>
+</div>
+<nav class="bottomnav" aria-label="التنقل">
+  <div class="in">
+    <button data-nav="home" aria-label="الرئيسية"></button>
+    <button data-nav="courses" aria-label="كورساتي"></button>
+    <button data-nav="account" aria-label="حسابي"></button>
+  </div>
+</nav>
+
+<script src="../shared/kit.js"></script>
+<script src="../shared/content-body.js"></script>
+<script src="../shared/data.js"></script>
+<script src="../shared/config.js"></script>
+<script src="../shared/vendor/supabase-2.45.4.min.js"></script>
+<script src="../shared/db-supabase.js"></script>
+<script>
+(function(){
+const {esc, I, $, $$} = Kit;
+const view = $('#view');
+const ARR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M15 5l-7 7 7 7"/></svg>';
+const nav = [['home','الرئيسية',I.home],['courses','كورساتي',I.book],['account','حسابي',I.user]];
+$$('.bottomnav button').forEach(b=>{ const n=nav.find(x=>x[0]===b.dataset.nav); b.innerHTML=n[2]+'<span>'+n[1]+'</span>'; b.addEventListener('click',()=>{ location.hash='#'+b.dataset.nav; }); });
+
+/* ---------- helpers ---------- */
+const lessonsOf = c => c.lessons || [];
+const mins = c => lessonsOf(c).reduce((a,l)=>a+(l.minutes||0),0);
+const hm = m => m>=60 ? `${Math.floor(m/60)} س${m%60?` و${m%60} د`:''}` : `${m} دقيقة`;
+const open = c => !!(c.access && c.access.active);
+function stats(c, doneSet){ const ls=lessonsOf(c); const d=ls.filter(l=>doneSet.has(l.id)).length; return {done:d, total:ls.length, pct: ls.length? d/ls.length:0, next: ls.find(l=>!doneSet.has(l.id))||null}; }
+function learnDays(progress){ return progress.map(p=>Kit.dayKey(p.done_at)); }
+async function ctx(){
+  const [me, courses, progress, products] = await Promise.all([DB.me(), DB.courses(), DB.progress(), DB.admin.products()]);
+  const doneSet = new Set(progress.map(p=>p.lesson_id));
+  return {me, courses, progress, products, doneSet, streak: Kit.streakFrom(learnDays(progress))};
+}
+function productsFor(courseId, products){ return products.filter(p=>p.grants.some(g=>g.space==='course:'+courseId)); }
+function cur(c){ return c.access && c.access.active; }
+function topStreak(n){ $('#topStreak').innerHTML = n>0 ? `<span class="streak" title="أيام تعلّم متواصلة">🔥 <span class="num">${n}</span></span>` : ''; }
+function thumb(c, locked){ return `<span class="thumb" style="background:${c.cover}" aria-hidden="true">${locked?I.lock:I.play}</span>`; }
+function ytId(u){ let m=u.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/); return m?m[1]:null; }
+function vimeoId(u){ const m=u.match(/vimeo\.com\/(?:video\/)?(\d+)/); return m?m[1]:null; }
+function embedHtml(u){
+  let y=ytId(u), v=vimeoId(u);
+  if(y) return `<iframe src="https://www.youtube-nocookie.com/embed/${esc(y)}?autoplay=1&rel=0" title="فيديو الدرس" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+  if(v) return `<iframe src="https://player.vimeo.com/video/${esc(v)}?autoplay=1" title="فيديو الدرس" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+  if(/\.(mp4|webm|m3u8)(\?|$)/i.test(u)) return `<video controls autoplay playsinline src="${esc(u)}"></video>`;
+  return `<iframe src="${esc(u)}" title="فيديو الدرس" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+}
+function skeleton(el){ el.innerHTML='<div class="skeleton"></div>'; }
+function notFound(el, msg){ el.innerHTML=`<div class="empty card"><div class="big">🌿</div><p>${esc(msg)}</p><a class="btn soft" href="#home">الرئيسية</a></div>`; }
+
+/* ---------- locked info sheet (calm) ---------- */
+function infoSheet(c, products){
+  const ps = productsFor(c.id, products);
+  const price = p => p.price ? `<span class="num">${p.price} ${esc(p.currency)}</span>` : 'مجاني';
+  const ls = lessonsOf(c);
+  Kit.sheet(`
+    <div class="cvr" style="background:${c.cover}">${I.lock}</div>
+    <h3>${esc(c.title)}</h3>
+    <p class="muted" style="margin:2px 0 10px">${esc(c.tagline||'')}</p>
+    <div class="row" style="gap:8px;flex-wrap:wrap"><span class="pill mute"><span class="num">${ls.length}</span> دروس</span><span class="pill mute">${hm(mins(c))}</span></div>
+    <ul>${ls.slice(0,4).map(l=>`<li>${esc(l.title)}</li>`).join('')}${ls.length>4?`<li>و<span class="num">${ls.length-4}</span> دروس كمان</li>`:''}</ul>
+    <div class="divider"></div>
+    <b style="font-size:14px">متاح ضمن</b>
+    <div style="margin-top:8px">${ps.length? ps.map(p=>`<div class="prodline"><span>${esc(p.name)}</span><span>${price(p)}</span></div>`).join('') : '<div class="note">هيتاح قريبًا.</div>'}</div>
+    <p class="note" style="margin:12px 0 0">من غير أي استعجال. لو حابب تعرف أكتر أو محتار تبدأ منين، كلمنا وهنوضّحلك.</p>
+    <div class="acts"><button class="btn ghost" data-close>تمام، شكرًا</button><a class="btn soft" href="https://wa.me/0000000000" target="_blank" rel="noopener">كلّمنا واتساب</a></div>`);
+}
+
+/* ---------- HOME ---------- */
+async function home(el){
+  skeleton(el);
+  const {me, courses, progress, products, doneSet, streak} = await ctx();
+  topStreak(streak);
+  const openCs = courses.filter(open);
+  // continue where you stopped
+  let heroC=null, nextL=null;
+  const lastDone = progress.slice().sort((a,b)=>b.done_at.localeCompare(a.done_at))[0];
+  const lastC = lastDone && openCs.find(c=>lessonsOf(c).some(l=>l.id===lastDone.lesson_id));
+  const order = lastC ? [lastC, ...openCs.filter(c=>c!==lastC)] : openCs;
+  for(const c of order){ const s=stats(c,doneSet); if(s.next){ heroC=c; nextL=s.next; break; } }
+  const totalDone = openCs.reduce((a,c)=>a+stats(c,doneSet).done,0);
+  const totalAll = openCs.reduce((a,c)=>a+lessonsOf(c).length,0);
+  const badges = await DB.badges();
+  // week dots
+  const days = new Set(learnDays(progress)); const week=[];
+  for(let i=6;i>=0;i--){ const d=new Date(); d.setDate(d.getDate()-i); week.push({k:Kit.dayKey(d), d, today:i===0}); }
+  const weekN = week.filter(w=>days.has(w.k)).length;
+
+  let heroHtml;
+  if(heroC){
+    const s=stats(heroC,doneSet);
+    heroHtml = `<section class="hero fadein">
+      <div class="kick">${s.done?'كمّل من حيث وقفت':'ابدأ رحلتك'}</div>
+      <h2>${esc(nextL.title)}</h2>
+      <div class="sub">${esc(heroC.title)} · <span class="num">${nextL.minutes}</span> دقيقة</div>
+      <div class="bar" role="progressbar" aria-valuenow="${Math.round(s.pct*100)}" aria-valuemin="0" aria-valuemax="100"><i style="width:${Math.round(s.pct*100)}%"></i></div>
+      <div class="sub"><span class="num">${s.done}</span> من <span class="num">${s.total}</span> دروس</div>
+      <a class="btn" href="#lesson/${esc(heroC.id)}/${esc(nextL.id)}">${I.play.replace('<svg','<svg width="16" height="16"')} كمّل الدرس</a></section>`;
+  } else {
+    heroHtml = `<section class="hero fadein"><div class="kick">أنهيت كل اللي متاح</div><h2>برافو عليك، خلّصت كل دروسك</h2><div class="sub">خد وقتك مع التمارين في مساعد التناغم، ولما تحب في كورسات تانية مستنياك.</div><a class="btn" href="../protocol/index.html">افتح مساعد التناغم</a></section>`;
+  }
+
+  el.innerHTML = `
+    <div class="hi"><small>${Kit.greeting()}</small><h1>أهلًا يا ${esc(me.name)}</h1></div>
+    ${heroHtml}
+    <div class="statrow">
+      <div class="stat"><small>دروس خلّصتها</small><b class="num">${totalDone}<span class="faint" style="font-size:13px;font-weight:600">/${totalAll}</span></b></div>
+      <div class="stat"><small>أيام تعلّم متواصلة</small><b class="num">${streak}</b></div>
+      <div class="stat"><small>أوسمة</small><b class="num">${badges.length}</b></div>
+    </div>
+    <div class="card week-card">
+      <div class="between"><span>أسبوعك في التعلّم</span><span class="pill ${weekN?'':'mute'}"><span class="num">${weekN}</span> من 7</span></div>
+      <div class="week">${week.map(w=>`<div class="d ${days.has(w.k)?'full':''} ${w.today?'today':''}"><i>${days.has(w.k)?'✓':''}</i>${Kit.DAYS_SHORT[w.d.getDay()]}</div>`).join('')}</div>
+      <p class="note" style="margin:10px 0 0">${weekN? esc(Kit.VOICE.streak(Math.max(streak,1)) ) : 'درس واحد بس النهارده يبدأ سلسلة أيامك.'}</p>
+    </div>
+    <div class="section-title">كورساتك<small><a href="#courses" style="color:inherit;text-decoration:none">الكل</a></small></div>
+    <div id="homeCourses"></div>`;
+  const box=$('#homeCourses');
+  courses.forEach(c=>{ box.insertAdjacentHTML('beforeend', courseCard(c, doneSet)); });
+  bindCards(box, courses, products);
+}
+function courseCard(c, doneSet){
+  const s=stats(c,doneSet), isOpen=open(c);
+  if(isOpen){
+    return `<a class="ccard fadein" href="#course/${esc(c.id)}">${thumb(c,false)}
+      <div class="txt"><b>${esc(c.title)}</b><span>${esc(c.tagline||'')}</span><span><span class="num">${s.done}</span> من <span class="num">${s.total}</span> دروس · ${hm(mins(c))}</span></div>
+      <span class="go">${Kit.ring(s.pct,{size:50,stroke:5,label:Math.round(s.pct*100)+'%'})}</span></a>`;
+  }
+  return `<button class="ccard locked fadein" data-info="${esc(c.id)}" aria-label="اعرف أكتر عن ${esc(c.title)}">${thumb(c,true)}
+    <div class="txt"><b>${esc(c.title)}</b><span>${esc(c.tagline||'')}</span><span class="pill mute">${I.lock.replace('<svg','<svg width="12" height="12"')} متاح ضمن باقة</span></div>
+    <span class="btn soft sm">اعرف أكتر</span></button>`;
+}
+function bindCards(box, courses, products){
+  $$('[data-info]',box).forEach(b=>b.addEventListener('click',()=>{ const c=courses.find(x=>x.id===b.dataset.info); infoSheet(c,products); }));
+}
+
+/* ---------- COURSES ---------- */
+async function coursesPage(el){
+  skeleton(el);
+  const {courses, products, doneSet, streak} = await ctx(); topStreak(streak);
+  const mine = courses.filter(open), other = courses.filter(c=>!open(c));
+  el.innerHTML = `<div class="hi"><h1>كورساتي</h1><small>${mine.length? 'كل اللي اشتركت فيه في مكان واحد' : 'لسه ماعندكش كورسات مفعّلة'}</small></div><div id="mine"></div>
+    ${other.length?`<div class="section-title">كورسات تانية تقدر تتعرف عليها</div><div id="other"></div>`:''}`;
+  mine.forEach(c=>$('#mine').insertAdjacentHTML('beforeend',courseCard(c,doneSet)));
+  other.forEach(c=>$('#other').insertAdjacentHTML('beforeend',courseCard(c,doneSet)));
+  bindCards(el, courses, products);
+}
+
+/* ---------- COURSE ---------- */
+async function coursePage(el, [id]){
+  skeleton(el);
+  const {courses, products, doneSet, streak} = await ctx(); topStreak(streak);
+  const c = courses.find(x=>x.id===id);
+  if(!c) return notFound(el,'الكورس ده مش موجود.');
+  const s=stats(c,doneSet), isOpen=open(c), ls=lessonsOf(c);
+  const complete = isOpen && s.total>0 && s.done===s.total;
+  el.innerHTML = `<button class="backlink" id="back">${I.arrow} كورساتي</button>
+    <section class="cover fadein" style="background:${c.cover}">
+      <h1>${esc(c.title)}</h1><p>${esc(c.tagline||'')}</p>
+    </section>
+    <div class="card" style="margin-top:12px">
+      <div class="prog">
+        ${Kit.ring(s.pct,{size:64,stroke:6,label:Math.round(s.pct*100)+'%'})}
+        <div style="flex:1;min-width:0">
+          <b style="font-size:14.5px">${complete?'خلّصت الكورس كله':isOpen?(s.done?'تقدّمك لحد دلوقتي':'جاهز تبدأ'):'نظرة على الكورس'}</b>
+          <div class="bar" aria-hidden="true"><i style="width:${Math.round(s.pct*100)}%"></i></div>
+          <div class="note"><span class="num">${s.done}</span> من <span class="num">${s.total}</span> دروس · ${hm(mins(c))}</div>
+        </div>
+      </div>
+      ${complete?`<div class="done-state" style="margin-top:12px"><span>🎓</span> وسام «خريج» في رصيدك</div>`:''}
+      ${isOpen&&s.next?`<a class="btn block" style="margin-top:12px" href="#lesson/${esc(c.id)}/${esc(s.next.id)}">${s.done?'كمّل من حيث وقفت':'ابدأ أول درس'}</a>`:''}
+    </div>
+    ${!isOpen?`<div class="lockbox"><span class="ic">${I.lock}</span><div class="tx"><b>الكورس ده مش مفعّل عندك</b><span>تقدر تشوف الدروس، وتعرف أكتر وقت ما تحب.</span></div><button class="btn soft sm" id="more">اعرف أكتر</button></div>`:''}
+    <div class="section-title">الدروس<small class="num">${ls.length}</small></div>
+    <div id="ls"></div>`;
+  $('#back').addEventListener('click',()=>{ location.hash='#courses'; });
+  const m=$('#more'); if(m) m.addEventListener('click',()=>infoSheet(c,products));
+  ls.forEach((l,i)=>{
+    const done=doneSet.has(l.id), isCur=isOpen&&s.next&&s.next.id===l.id;
+    const cls = !isOpen?'lk':done?'done':isCur?'cur':'';
+    const ic = !isOpen? I.lock : done? I.check : `<span class="num">${i+1}</span>`;
+    const inner = `<span class="n">${ic}</span><span class="tt"><b>${esc(l.title)}</b><span><span class="num">${l.minutes}</span> دقيقة${l.exercise?'<span class="tag">· فيه تمرين</span>':''}${isCur?'<span class="tag">· الدرس الجاي</span>':''}</span></span>`;
+    $('#ls').insertAdjacentHTML('beforeend', isOpen
+      ? `<a class="lrow ${cls}" href="#lesson/${esc(c.id)}/${esc(l.id)}">${inner}</a>`
+      : `<button class="lrow ${cls}" data-info>${inner}</button>`);
+  });
+  $$('#ls [data-info]').forEach(b=>b.addEventListener('click',()=>infoSheet(c,products)));
+}
+
+/* ---------- LESSON ---------- */
+async function lessonPage(el, [cid, lid]){
+  skeleton(el);
+  const {courses, products, doneSet, streak} = await ctx(); topStreak(streak);
+  const c = courses.find(x=>x.id===cid);
+  const ls = c?lessonsOf(c):[]; const idx = ls.findIndex(l=>l.id===lid);
+  if(!c || idx<0) return notFound(el,'الدرس ده مش موجود.');
+  const l=ls[idx], prev=ls[idx-1], next=ls[idx+1];
+  if(!open(c)){
+    el.innerHTML = `<button class="backlink" id="back">${I.arrow} ${esc(c.title)}</button>
+      <div class="video"><div class="poster" style="background:${c.cover}"><span class="play">${I.lock}</span><span class="soon">الدرس ده ضمن كورس مش مفعّل عندك</span></div></div>
+      <h1 class="lesson-h">${esc(l.title)}</h1>
+      <div class="lockbox"><span class="ic">${I.lock}</span><div class="tx"><b>من غير أي ضغط</b><span>تقدر تعرف الكورس بالتفصيل وقت ما تحب.</span></div><button class="btn soft sm" id="more">اعرف أكتر</button></div>`;
+    $('#back').addEventListener('click',()=>{ location.hash='#course/'+c.id; });
+    $('#more').addEventListener('click',()=>infoSheet(c,products));
+    return;
+  }
+  let ex=null;
+  if(l.exercise){ const exs=await DB.exercises(); ex=exs.find(x=>x.id===l.exercise)||null; }
+  const draw = (isDone) => {
+    const hasVid = !!(l.video && l.video.trim());
+    const videoHtml = hasVid
+      ? `<div class="video" id="vid"><button class="poster" id="playBtn" style="background:${c.cover}" aria-label="شغّل الفيديو"><span class="play">${I.play}</span><small><span class="num">${l.minutes}</span> دقيقة</small></button></div>`
+      : `<div class="video"><div class="poster" style="background:${c.cover}"><span class="play" style="background:rgba(255,253,248,.85)">${I.play}</span><span class="soon">الفيديو هيترفع قريبًا</span><small>هنبلّغك أول ما يبقى جاهز</small></div></div>`;
+    el.innerHTML = `<button class="backlink" id="back">${I.arrow} ${esc(c.title)}</button>
+      ${videoHtml}
+      <h1 class="lesson-h">${esc(l.title)}</h1>
+      <div class="lesson-meta"><span class="pill mute">درس <span class="num">${idx+1}</span> من <span class="num">${ls.length}</span></span><span><span class="num">${l.minutes}</span> دقيقة</span>${isDone?'<span class="pill ok">اتخلّص ✓</span>':''}</div>
+      ${l.body?`<p class="lesson-body">${esc(l.body)}</p>`:''}
+      ${l.material?`<p class="lesson-body" style="margin-top:-4px"><a href="${esc(l.material)}" target="_blank" rel="noopener" style="color:var(--gold-deep);font-weight:700">📎 ملف مادة الدرس</a>${l.material2?` · <a href="${esc(l.material2)}" target="_blank" rel="noopener" style="color:var(--gold-deep);font-weight:700">جدول الحقب الزمنية</a>`:''}</p>`:''}
+      ${l.exercises?`<section class="bridge"><span class="ic" aria-hidden="true">✍️</span><div class="tx"><b>${l.exercises.length?`سجّل نتايج الدرس (${l.exercises.length===1&&ex?esc(ex.title):l.exercises.length===2?'تمرينين':l.exercises.length+' تمارين'})`:'إنجازات الدرس وتذكيراته'}</b>
+        <div class="hint">في مساعد التناغم بتسجّل نتايجك في ملفك، وتعلّم على إنجازاتك، وتبدأ ممارسات الدرس.</div>
+        <a class="btn sm" id="bridge" href="../protocol/index.html#journey/${esc(l.id)}">انتقل لمساعد التناغم ${ARR}</a></div></section>`
+      : l.exercise?`<section class="bridge"><span class="ic" aria-hidden="true">✍️</span><div class="tx"><b>تمرين الدرس${ex?`: ${esc(ex.title)}`:''}</b>
+        <div class="hint">في مساعد التناغم بتسجّل نتيجة التمرين في ملفك الشخصي وتتابع تقدّمك بهدوء.</div>
+        <a class="btn sm" id="bridge" href="../protocol/index.html#log/${esc(l.exercise)}">انتقل لمساعد التناغم ${ARR}</a></div></section>`:''}
+      <div class="done-bar">
+        ${isDone
+          ? `<div class="done-state">${I.check}<span>خلّصت الدرس ده</span><button class="btn ghost sm" id="undo">تراجع</button></div>`
+          : `<button class="btn ok block lg" id="finish">${I.check.replace('<svg','<svg width="20" height="20"')} خلّصت الدرس</button>`}
+        <div class="pager">
+          ${prev?`<a class="btn ghost" href="#lesson/${esc(c.id)}/${esc(prev.id)}">السابق</a>`:'<span></span>'}
+          ${next?`<a class="btn ${isDone?'':'ghost'}" href="#lesson/${esc(c.id)}/${esc(next.id)}">الدرس الجاي</a>`:`<a class="btn ghost" href="#course/${esc(c.id)}">صفحة الكورس</a>`}
+        </div>
+      </div>`;
+    $('#back').addEventListener('click',()=>{ location.hash='#course/'+c.id; });
+    const pb=$('#playBtn'); if(pb) pb.addEventListener('click',()=>{ $('#vid').innerHTML = embedHtml(l.video); });
+    const fin=$('#finish'); if(fin) fin.addEventListener('click', finish);
+    const un=$('#undo'); if(un) un.addEventListener('click', async()=>{ await DB.markLesson(l.id,false); doneSet.delete(l.id); const ps=await DB.progress(); topStreak(Kit.streakFrom(learnDays(ps))); Kit.toast('اتشالت العلامة'); draw(false); });
+  };
+  async function finish(){
+    const btn=$('#finish'); btn.disabled=true;
+    await DB.markLesson(l.id,true); doneSet.add(l.id);
+    const ps = await DB.progress(); const st=Kit.streakFrom(learnDays(ps)); topStreak(st);
+    draw(true);
+    const allDone = ls.every(x=>doneSet.has(x.id));
+    if(allDone){
+      await DB.award('course_done');
+      Kit.celebrate({icon:'🎓', title:Kit.VOICE.courseDone.title, body:Kit.VOICE.courseDone.body, cta:'شوف الكورس', onCta:()=>{ location.hash='#course/'+c.id; }});
+    } else {
+      const body = Kit.VOICE.lessonDone.body + (st>1?` وده اليوم رقم ${st} على التوالي.`:'');
+      Kit.celebrate({icon:'✨', title:Kit.VOICE.lessonDone.title, body, cta: next?'الدرس الجاي':'تمام', onCta:()=>{ if(next) location.hash=`#lesson/${c.id}/${next.id}`; }});
+    }
+  }
+  draw(doneSet.has(l.id));
+}
+
+/* ---------- ACCOUNT ---------- */
+const SPACE_NAMES = {protocol:'مساعد التناغم', community:'مجتمع لقاء الروح'};
+async function accountPage(el){
+  skeleton(el);
+  const {me, courses, products, progress, doneSet, streak} = await ctx(); topStreak(streak);
+  const [ents, badges, proto] = await Promise.all([DB.myEntitlements(), DB.badges(), DB.access('protocol')]);
+  const state = !proto.has ? 'free' : proto.active ? 'active' : 'readonly';
+  const earned = new Set(badges.map(b=>b.id));
+  const rows = ents.slice().sort((a,b)=>(a.ends_at?1:0)-(b.ends_at?1:0)).map(e=>{
+    let name; if(e.space.startsWith('course:')){ const c=courses.find(x=>x.id===e.space.slice(7)); name='كورس: '+(c?c.title:e.space.slice(7)); } else name=SPACE_NAMES[e.space]||e.space;
+    const end = e.ends_at ? new Date(e.ends_at) : null;
+    const left = end ? Math.ceil((end-new Date())/864e5) : null;
+    const pill = !end ? '<span class="pill ok">مدى الحياة</span>' : left>0 ? `<span class="pill ${left<=7?'warn':'ok'}">باقي <span class="num">${left}</span> يوم</span>` : '<span class="pill mute">انتهى</span>';
+    const src = products.find(p=>p.id===e.source);
+    return `<div class="prow"><div class="tx"><b>${esc(name)}</b><span>${end?`${left>0?'لحد':'انتهى في'} ${Kit.fmtShort(end)} ${end.getFullYear()}`:'من غير تاريخ انتهاء'}</span></div>${pill}</div>`;
+  }).join('');
+  const lessonsDone = courses.filter(open).reduce((a,c)=>a+stats(c,doneSet).done,0);
+  el.innerHTML = `<div class="hi"><h1>حسابي</h1></div>
+    <div class="card who fadein"><div class="avatar" aria-hidden="true">${esc(me.name.slice(0,1))}</div><div style="min-width:0"><b>${esc(me.name)}</b><span>${esc(me.email)}</span></div></div>
+    <div class="statrow">
+      <div class="stat"><small>دروس</small><b class="num">${lessonsDone}</b></div>
+      <div class="stat"><small>أيام متواصلة</small><b class="num">${streak}</b></div>
+      <div class="stat"><small>أوسمة</small><b class="num">${earned.size}</b></div>
+    </div>
+    <div class="section-title">أوسمتي</div>
+    <div class="card"><div class="badges">${Kit.BADGES.map(b=>`<div class="badge ${earned.has(b.id)?'':'locked'}" title="${esc(b.hint)}"><div class="b" aria-hidden="true">${b.icon}</div><span>${esc(b.name)}</span></div>`).join('')}</div></div>
+    <div class="section-title">باقاتي</div>
+    <div class="card">${rows||'<div class="note">لسه ماعندكش باقات مفعّلة.</div>'}
+      ${state==='readonly'?'<p class="note" style="margin:12px 0 0">اشتراك مساعد التناغم انتهى، لكن ملفك محفوظ وتقدر تكمّل تسجّل تمارينك.</p>':''}</div>
+    <div class="section-title">الجلسة</div>
+    <div class="card"><div class="between"><span class="muted" style="font-size:14px">خروج من الحساب على الجهاز ده</span><button class="btn ghost sm" id="out">تسجيل الخروج</button></div></div>
+    <div class="section-title">معاينة</div>
+    <div class="card demo"><h3>معاينة الحالات (للمراجعة فقط)</h3>
+      <div class="btns">
+        <button class="btn ghost" data-demo="paid">عضو مدفوع</button>
+        <button class="btn ghost" data-demo="free">مجاني</button>
+        <button class="btn ghost" data-demo="expired">اشتراك منتهي</button>
+      </div>
+      <button class="btn ghost sm" id="reset">إعادة ضبط البيانات التجريبية</button>
+      <p class="note" style="margin:8px 0 0">بتغيّر حالة الحساب عشان تشوف كل تجربة. الصفحة بتتحدّث لوحدها.</p></div>`;
+  $$('[data-demo]').forEach(b=>b.addEventListener('click',()=>DB.setDemoUser(b.dataset.demo)));
+  $('#reset').addEventListener('click',()=>DB.resetDemo());
+  $('#out').addEventListener('click', async()=>{ await DB.signOut(); signedOut(el, me); });
+}
+function signedOut(el, me){
+  topStreak(0);
+  el.innerHTML = `<div class="card allsum fadein"><div class="big">🌿</div><h3 style="margin:8px 0 4px;color:var(--gold-deep)">اتسجّل خروجك</h3>
+    <p class="muted" style="margin:0 0 14px">في النسخة التجريبية ده شكلي بس. هنبعتلك رابط دخول جديد على الإيميل لما ترجع.</p>
+    <div class="field" style="text-align:start"><label for="em">البريد الإلكتروني</label><input id="em" class="input" type="email" dir="ltr" value="${esc(me.email)}"></div>
+    <button class="btn block" id="in">ابعتلي رابط الدخول</button></div>`;
+  $('#in').addEventListener('click', async()=>{ const r=await DB.signIn($('#em').value); Kit.toast('بعتنالك الرابط على '+r.email); setTimeout(()=>{ location.hash='#home'; },700); });
+}
+
+/* ---------- boot ---------- */
+const routes = {home, courses:coursesPage, course:coursePage, lesson:lessonPage, account:accountPage};
+const wrap = fn => (el, rest) => { Promise.resolve(fn(el, rest)).catch(e=>{ console.error(e); el.innerHTML='<div class="empty card"><div class="big">🌿</div><p>حصلت مشكلة بسيطة. جرّب تفتح الصفحة تاني.</p></div>'; }); };
+const wrapped = Object.fromEntries(Object.entries(routes).map(([k,f])=>[k,wrap(f)]));
+const fixNav = () => { const p=(location.hash.slice(1)||'home').split('/')[0]; if(p==='course'||p==='lesson') $$('[data-nav]').forEach(b=>b.classList.toggle('on', b.dataset.nav==='courses')); };
+Kit.router(wrapped, view, 'home');
+addEventListener('hashchange', ()=>{ Kit.closeAll(); fixNav(); });
+fixNav();
+})();
+</script>
+</body>
+</html>

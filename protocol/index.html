@@ -1,0 +1,925 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7f2e8">
+<title>مساعد التناغم — لقاء الروح</title>
+<link rel="icon" href="../shared/assets/coin-96.png">
+<link rel="apple-touch-icon" href="../shared/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Sans+Arabic:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/kit.css">
+<style>
+/* ---- page-specific (protocol member app) ---- */
+.btn svg{width:18px;height:18px;flex:0 0 auto}
+.app > * {min-width:0}
+h1.hello{font-size:22px;margin:2px 2px 0}
+.hello-sub{font-size:13px;color:var(--ink-faint);margin:0 2px 14px}
+.streak svg{width:15px;height:15px}
+.banner-ro{display:flex;gap:10px;align-items:center;background:var(--warn-soft);border:1px solid #e8cfae;color:#7a4a1c;border-radius:12px;padding:9px 12px;font-size:13px;font-weight:600;margin-bottom:12px}
+.banner-ro svg{width:18px;height:18px;flex:0 0 auto}
+.hero > *{position:relative;z-index:1}
+.hero .big{font-size:34px;font-weight:800;line-height:1.1;color:#3b2a08}
+.hero .big span{font-size:18px;font-weight:600;opacity:.7}
+.hero .msg{font-size:13.5px;font-weight:600;margin-top:4px;color:#5b4210}
+.hero .lg{display:flex;gap:14px;font-size:11.5px;color:#6b4f12;margin:10px 0 8px}
+.hero .lg i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-inline-end:5px;vertical-align:middle}
+.hero .week{background:rgba(255,255,255,.35);border-radius:14px;padding:8px 6px}
+.hero .week .d{color:#5b4210;font-weight:600}
+.hero .week .d i{background:rgba(255,255,255,.6);color:#6b4f12;font-weight:700;font-size:12.5px}
+.hero .week .d.part i{background:#fff;color:var(--gold-deep)}
+.hero .week .d.full i{background:var(--gold-deep);color:#fff}
+.hero .week .d.today i{box-shadow:0 0 0 2px #3b2a08}
+.hero.complete{background:linear-gradient(135deg,#f5e2a6,#e2b24f 60%,#f3d98c)}
+.hero.complete .big{animation:pop .6s var(--spring) both}
+.nudge{position:relative;margin-top:12px}
+.nudge .x{margin-inline-start:auto}
+.xbtn{width:40px;height:40px;flex:0 0 auto;border:0;background:transparent;color:var(--ink-faint);border-radius:10px;cursor:pointer;display:grid;place-items:center}
+.xbtn:hover{background:var(--bg-2);color:var(--ink)}
+.xbtn svg{width:18px;height:18px}
+.nudge.soft{border-color:var(--line-strong)}
+.nudge .go{flex:1;min-width:0}
+.quick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.quick .btn{min-height:46px;font-size:14px}
+.task{align-items:center}
+.task .check{width:30px;height:30px;margin-top:0;border-radius:9px;padding:0;position:relative}
+.task .check::after{content:"";position:absolute;inset:-8px}
+.task .body{flex:1;min-width:0}
+.task .ax{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;font-size:17px;background:var(--bg-2);flex:0 0 auto}
+.task.done{background:var(--surface-2)}
+.task .calbtn{width:40px;height:40px;padding:0;justify-content:center;flex:0 0 auto;text-decoration:none}
+.task .calbtn svg{width:18px;height:18px}
+.timechip{border:0;background:var(--bg-2);color:var(--ink-soft);font-size:12px;font-weight:600;border-radius:99px;padding:3px 10px;cursor:pointer;min-height:28px;display:inline-flex;align-items:center;gap:5px}
+.timechip svg{width:12px;height:12px}
+.nextcard{display:flex;gap:12px;align-items:center}
+.nextcard .b{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-size:22px;background:var(--bg-2);filter:grayscale(1);opacity:.8;flex:0 0 auto}
+.dayhead{display:flex;justify-content:space-between;align-items:baseline;margin:20px 2px 8px;font-weight:700;font-size:14.5px}
+.dayhead small{font-weight:600;color:var(--ink-faint);font-size:12px}
+.dayhead.today b{color:var(--gold-deep)}
+.weekstrip .d{min-height:56px;background:none;border:0;cursor:pointer;font-family:inherit;padding:0}
+.weekstrip .d i{width:100%;max-width:40px;min-height:40px;aspect-ratio:auto;height:40px}
+.weekstrip .d b{font-size:11px;font-weight:600}
+.axchips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;margin:12px 0 0;scrollbar-width:none}
+.axchips .chip{white-space:nowrap;min-height:40px;display:inline-flex;align-items:center;gap:5px}
+.calbanner{display:flex;gap:12px;align-items:center;width:100%;text-align:start;cursor:pointer;border:1px dashed var(--gold);background:var(--gold-soft);border-radius:var(--r);padding:12px 14px;color:var(--gold-deep);font-weight:700;margin-top:12px;min-height:56px}
+.calbanner svg{width:26px;height:26px;flex:0 0 auto}
+.calbanner small{display:block;font-weight:500;color:var(--ink-soft);font-size:12px}
+.link{border:0;background:transparent;color:var(--gold-deep);font-weight:700;font-size:13px;cursor:pointer;padding:8px 6px;min-height:40px}
+.exrow{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:6px 6px 6px 10px;margin-top:8px}
+.exrow a.main{flex:1;min-width:0;display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;padding:8px 6px;min-height:52px}
+.exrow .t{font-weight:700;font-size:14.5px}
+.exrow .m{font-size:12px;color:var(--ink-faint)}
+.exrow .plus{width:44px;height:44px;border-radius:12px;border:1px solid var(--gold);background:var(--gold-soft);color:var(--gold-deep);display:grid;place-items:center;cursor:pointer;text-decoration:none;flex:0 0 auto}
+.exrow .plus svg{width:20px;height:20px}
+.entry{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin-top:10px}
+.entry .when{font-size:12px;color:var(--ink-faint);display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+.entry dl{margin:0}
+.entry dt{font-size:12px;color:var(--ink-faint);font-weight:600;margin-top:8px}
+.entry dd{margin:1px 0 0;font-weight:500;white-space:pre-wrap;overflow-wrap:anywhere}
+.mini-axes{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin-top:4px}
+.mini-axes .bar{height:5px;margin-top:2px}
+.mini-axes small{font-size:12px;color:var(--ink-soft);display:flex;justify-content:space-between}
+.scale.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(46px,1fr));gap:6px}
+.scale.g button{min-height:44px;font-size:15px;font-family:inherit}
+.axrow{margin-bottom:14px}
+.axrow .lbl{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;margin-bottom:6px}
+.chip{min-height:40px;font-family:inherit}
+.stepno{width:28px;height:28px;border-radius:50%;background:var(--gold);color:#fff;display:inline-grid;place-items:center;font-weight:800;font-size:13px;flex:0 0 auto}
+.stepcard h3{font-size:15.5px}
+.sel{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;padding:8px 12px;min-height:50px;background:var(--surface);cursor:pointer;margin-top:8px}
+.sel input{width:22px;height:22px;accent-color:var(--gold-deep);flex:0 0 auto}
+.sel.on{border-color:var(--gold);background:#fffaf0}
+.sel.off{opacity:.55;cursor:default}
+.sel .t{flex:1;min-width:0;font-weight:600;font-size:14px}
+.sel small{color:var(--ink-faint);font-size:12px}
+.promptbox{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:12.5px;line-height:1.8;white-space:pre-wrap;max-height:200px;overflow:auto;overflow-wrap:anywhere;margin:10px 0}
+.pv-task{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px 6px 6px 12px;margin-top:6px}
+.pv-task .t{flex:1;min-width:0;font-weight:600;font-size:14px}
+.pv-task .m{font-size:12px;color:var(--ink-faint)}
+.lockcard{text-align:center;padding:24px 18px}
+.lockcard .lk{width:56px;height:56px;border-radius:50%;background:var(--gold-soft);color:var(--gold-deep);display:grid;place-items:center;margin:0 auto 10px}
+.lockcard .lk svg{width:26px;height:26px}
+.lockcard ul{text-align:start;margin:12px 0;padding:0;list-style:none}
+.lockcard li{padding:6px 0 6px 0;display:flex;gap:10px;align-items:flex-start;font-size:14px}
+.lockcard li::before{content:"✦";color:var(--gold)}
+.code{direction:ltr;text-align:left;font-family:ui-monospace,Menlo,monospace;font-size:12.5px}
+.steps{margin:8px 0 14px;padding-inline-start:20px;font-size:14px}
+.steps li{margin:4px 0}
+.badge{background:transparent;border:0;font-family:inherit;cursor:pointer;padding:4px 0;min-height:44px}
+.badge small{font-size:10.5px;color:var(--ink-faint)}
+.badge .b{position:relative}
+.badge.locked .b::after{content:"";position:absolute;inset:0}
+.axbal{display:grid;gap:10px}
+.axbal .r{display:grid;grid-template-columns:70px 1fr 28px;gap:10px;align-items:center;font-size:13px}
+.axbal .bar i{background:var(--c)}
+.backlink{display:inline-flex;align-items:center;gap:6px;color:var(--ink-soft);font-weight:600;font-size:13.5px;text-decoration:none;padding:8px 4px;min-height:40px}
+.backlink svg{width:16px;height:16px;transform:scaleX(-1)}
+.pagehead{display:flex;align-items:center;gap:12px;margin:2px 0 6px}
+.pagehead .ax{width:44px;height:44px;border-radius:14px;background:var(--gold-soft);display:grid;place-items:center;font-size:22px}
+.pagehead h1{font-size:20px}
+.inline-confirm{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.copybar{display:flex;gap:8px;align-items:center}
+.copybar .input{direction:ltr;text-align:left;font-size:12.5px;min-width:0}
+.tgl{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 0;min-height:48px}
+.pill.btnlike{min-height:28px}
+.opt{display:flex;gap:8px;flex-wrap:wrap}
+.opt .btn{flex:1;min-width:110px;min-height:44px}
+.errbox{background:var(--err-soft);color:var(--err);border-radius:12px;padding:10px 12px;font-size:13.5px;margin-top:10px}
+.okbox{background:var(--ok-soft);color:var(--ok);border-radius:12px;padding:10px 12px;font-size:13.5px;margin-top:10px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media(max-width:360px){.hero .big{font-size:28px}}
+/* tables inside exercise forms */
+.fhint{font-size:12.5px;color:var(--ink-faint);margin:-2px 0 6px}
+.trow{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-top:8px;background:var(--surface-2)}
+.trh{display:flex;align-items:baseline;gap:8px;margin-bottom:6px}
+.trh b{font-size:14.5px}.trh small{font-size:12px;color:var(--ink-faint);flex:1;min-width:0}
+.tcells{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+.tcells .wide{grid-column:1/-1}
+.tcells label{display:block;font-size:12px;font-weight:600;color:var(--ink-soft);margin-bottom:3px}
+.tcells .input,.field .input{max-width:none}
+.tcells .chips{gap:6px}.tcells .chip{min-height:34px;font-size:12.5px;padding:4px 11px}
+.addrowbtn{margin-top:10px}
+.tv{padding:4px 0;border-bottom:1px dashed var(--line);font-size:13.5px}.tv:last-child{border:0}
+.tv b{font-weight:700}
+.exnote{background:var(--gold-soft);color:var(--gold-deep);border-radius:10px;padding:8px 12px;font-size:13px;font-weight:600;margin-bottom:12px}
+/* journey */
+.lrow{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;margin-top:8px;text-decoration:none;color:inherit;min-height:64px}
+.lrow .no{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:12px;font-weight:800;background:var(--bg-2);color:var(--ink-soft);flex:0 0 auto;text-align:center;line-height:1.2}
+.lrow.done .no{background:var(--ok-soft);color:var(--ok)}
+.lrow .tt{flex:1;min-width:0}.lrow .tt b{display:block;font-size:14.5px}.lrow .tt span{font-size:12px;color:var(--ink-faint)}
+.lrow .meter{font-size:12px;color:var(--gold-deep);font-weight:700;white-space:nowrap}
+.blk{margin-top:16px}
+.blk h3{font-size:15px;margin:0 0 6px;display:flex;align-items:center;gap:8px}
+.ach{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);margin-top:8px;min-height:56px}
+.ach .ic{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:20px;background:var(--bg-2);flex:0 0 auto;filter:grayscale(1);opacity:.6}
+.ach.got .ic{background:var(--gold-soft);filter:none;opacity:1}
+.ach .t{flex:1;min-width:0;font-weight:600;font-size:14px}.ach .t small{display:block;font-weight:500;color:var(--ink-faint);font-size:12px}
+.prog{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:12px;margin-top:8px}
+.prog .bar{margin-top:8px}
+.rem{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:10px 12px;margin-top:8px;min-height:56px}
+.rem .t{flex:1;min-width:0}.rem .t b{display:block;font-size:14px}.rem .t small{color:var(--ink-faint);font-size:12px}
+.rem.off{opacity:.55}
+.remday{display:flex;gap:12px;align-items:center;background:linear-gradient(135deg,#f3ecfb,#fbf7ef);border:1px solid #e1d6f0;border-radius:var(--r);padding:12px 14px;margin-top:12px;text-decoration:none;color:inherit}
+.remday .ic{font-size:22px}.remday b{display:block;font-size:14.5px;color:#4b3473}.remday small{color:var(--ink-soft);font-size:12.5px}
+.topacc{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;color:var(--ink-soft);text-decoration:none}
+.topacc svg{width:20px;height:20px}
+.txtbtn{border:0;background:var(--bg-2);color:var(--gold-deep);font-weight:700;font-size:12px;border-radius:99px;padding:3px 10px;min-height:28px;cursor:pointer;font-family:inherit}
+.intent{background:var(--surface-2);border-inline-start:3px solid var(--gold);border-radius:8px;padding:12px 14px;font-family:var(--f-quote,inherit);font-size:16px;line-height:1.9}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <div class="topbar">
+    <div class="brand"><img src="../shared/assets/coin-96.png" alt="شعار لقاء الروح"><div><b>مساعد التناغم</b><span>لقاء الروح</span></div></div>
+    <span id="streakTop" style="margin-inline-start:auto"></span><a class="topacc" href="#account" aria-label="حسابي"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/></svg></a>
+  </div>
+  <div id="roBanner"></div>
+  <main id="view" aria-live="polite"></main>
+</div>
+<nav class="bottomnav" aria-label="التنقل الرئيسي"><div class="in" id="nav"></div></nav>
+
+<script src="../shared/kit.js"></script>
+<script src="../shared/content-body.js"></script>
+<script src="../shared/data.js"></script>
+<script src="../shared/config.js"></script>
+<script src="../shared/vendor/supabase-2.45.4.min.js"></script>
+<script src="../shared/db-supabase.js"></script>
+<script>
+(function(){
+'use strict';
+const {$,$$,esc,fmtDate,fmtShort,fmtTime,dayKey,DAYS,DAYS_SHORT,VOICE,pick,BADGES,I}=Kit;
+
+/* ---------- small utils ---------- */
+const mem={};
+const store={
+  get(k){ try{ const v=localStorage.getItem(k); if(v!==null) return v; }catch(e){} return mem[k]??null; },
+  set(k,v){ mem[k]=v; try{ localStorage.setItem(k,v); }catch(e){} }
+};
+const todayKey=()=>dayKey(new Date());
+const addD=(d,n)=>{ const x=new Date(d); x.setDate(x.getDate()+n); return x; };
+const pad=n=>String(n).padStart(2,'0');
+const ICON={
+  flame:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c.6 3.2-1.4 4.6-2.8 6.4C7.6 10.3 6 12.2 6 15a6 6 0 0012 0c0-2.2-1-3.8-2.2-5.2-.3 1.2-.9 2-1.8 2.4.5-3.4-.2-7.4-2-10.2z"/></svg>',
+  x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  pencil:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l4-1 11-11-3-3L5 16z"/></svg>',
+  info:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>',
+  calplus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>'
+};
+const taskWord=n=>n===1?'مهمة':n===2?'مهمتين':'مهام';
+const AX={}; (DB.AXES||[]).forEach(a=>AX[a.id]=a);
+const axIcon=id=>AX[id]?AX[id].icon:'✦';
+const axName=id=>AX[id]?AX[id].name:'';
+const axColor=id=>`var(--axis-${id})`;
+const dayLabel=key=>{ const t=todayKey(); if(key===t) return 'النهارده'; if(key===dayKey(addD(new Date(),1))) return 'بكرة'; if(key===dayKey(addD(new Date(),-1))) return 'إمبارح'; return Kit.fmtDate(key+'T12:00:00'); };
+function pctOf(a,b){ return b?a/b:0; }
+
+/* ---------- data loading + derived stats ---------- */
+async function load(){
+  const [me,acc,tasksAll,entries,exs,badges,courses,plans]=await Promise.all([DB.me(),DB.access('protocol'),DB.tasks(),DB.entries(),DB.exercises(),DB.badges(),DB.courses(),DB.plans()]);
+  const tasks=tasksAll.filter(t=>!t.deleted);
+  const state=acc.active?'active':(acc.readOnly?'readonly':'free');
+  const byDay={}; tasks.forEach(t=>{ (byDay[dayKey(t.due_at)]=byDay[dayKey(t.due_at)]||[]).push(t); });
+  Object.values(byDay).forEach(a=>a.sort((x,y)=>x.due_at.localeCompare(y.due_at)));
+  const act=new Set(); tasks.forEach(t=>{ if(t.done_at) act.add(dayKey(t.done_at)); }); entries.forEach(e=>act.add(dayKey(e.created_at)));
+  const streak=Kit.streakFrom([...act]);
+  let best=0,run=0,prev=null; [...act].sort().forEach(k=>{ if(prev && Kit.daysBetween(prev,k)===1) run++; else run=1; if(run>best) best=run; prev=k; });
+  const exMap={}; exs.forEach(x=>exMap[x.id]=x);
+  const courseMap={}; courses.forEach(c=>courseMap[c.id]=c);
+  if(!CUR) CUR=await DB.curriculum();
+  const [achs,runs]=await Promise.all([DB.myAchievements(),DB.programRuns()]);
+  const C={me,acc,state,tasks,byDay,entries,exs,exMap,courses,courseMap,badges,plans,streak,best,act,achs,runs,cur:CUR,
+    gotAch:id=>achs.some(a=>a.id===id),
+    earned:id=>badges.some(b=>b.id===id),
+    on:k=>byDay[k]||[],
+    stat(k){ const l=byDay[k]||[]; return {total:l.length,done:l.filter(t=>t.done_at).length}; }
+  };
+  return C;
+}
+function weekWindow(C,n=7,end=new Date()){ // oldest -> newest
+  const out=[]; for(let i=n-1;i>=0;i--){ const d=addD(end,-i); const k=dayKey(d); out.push({d,k,...C.stat(k),entries:C.entries.filter(e=>dayKey(e.created_at)===k).length}); } return out;
+}
+function weekPct(C){ const w=weekWindow(C); const t=w.reduce((a,x)=>a+x.total,0), d=w.reduce((a,x)=>a+x.done,0); return pctOf(d,t); }
+
+/* ---------- badges ---------- */
+async function checkBadges(C){
+  const got=[]; const aw=async id=>{ if(!C.earned(id) && await DB.award(id)) got.push(id); };
+  if(C.entries.length>=1) await aw('first_entry');
+  if(C.plans.length>=1) await aw('first_plan');
+  if(C.streak>=7) await aw('streak_7');
+  if(C.streak>=30) await aw('streak_30');
+  if(C.entries.length>=20) await aw('entries_20');
+  const w=weekWindow(C); const axs=new Set(); w.forEach(x=>C.on(x.k).forEach(t=>{ if(t.done_at) axs.add(t.axis); }));
+  if(['mind','heart','body','spirit'].every(a=>axs.has(a))) await aw('axes_all');
+  try{ const prog=new Set((await DB.progress()).map(p=>p.lesson_id)); if(C.courses.some(c=>c.lessons.length && c.lessons.every(l=>prog.has(l.id)))) await aw('course_done'); }catch(e){}
+  try{ (await DB.evalAchievements()).forEach(id=>got.push('ach:'+id)); }catch(e){}
+  return got;
+}
+let CUR=null; // curriculum (achievements / programs / reminders), loaded once
+const bInfo=id=>{ if(String(id).startsWith('ach:')){ const a=(CUR&&CUR.achievements||[]).find(x=>x.id===id.slice(4))||{}; return {icon:a.icon||'🏅',name:a.title||'',hint:'محطة جديدة في رحلتك'}; } return BADGES.find(b=>b.id===id)||{icon:'✦',name:'',hint:''}; };
+function celebrateBadges(ids){
+  const b=bInfo(ids[0]);
+  Kit.celebrate({icon:b.icon,title:`${String(ids[0]).startsWith('ach:')?'إنجاز جديد':'وسام جديد'}: ${b.name}`,body:ids.length>1?`وكمان ${ids.slice(1).map(i=>bInfo(i).name).join('، ')}. ${b.hint}.`:`${b.hint}. اتضاف لمجموعتك.`,cta:'تمام'});
+}
+
+/* ---------- shell: banner, streak, nav ---------- */
+const NAV=[['today','النهارده','home'],['tasks','المهام','tasks'],['journey','رحلتي','spark'],['file','ملفي','file'],['progress','التقدّم','chart']];
+$('#nav').innerHTML=NAV.map(([id,l,ic])=>`<button type="button" data-nav="${id}" data-go="${id}" aria-label="${l}">${I[ic]}<span>${l}</span></button>`).join('');
+function syncNav(){ const p=(location.hash.slice(1)||'today').split('/')[0]; const map={exercise:'file',log:'file',plan:'file',remember:'journey'}; const cur=map[p]||p;
+  $$('#nav [data-nav]').forEach(b=>{ b.classList.toggle('on',b.dataset.nav===cur); b.toggleAttribute('aria-current',b.dataset.nav===cur); if(b.dataset.nav!==cur) b.removeAttribute('aria-current'); else b.setAttribute('aria-current','page'); }); }
+async function shell(C){
+  $('#streakTop').innerHTML=C.streak>0?`<span class="streak" title="أيام متواصلة">${ICON.flame}<span class="num">${C.streak}</span></span>`:'';
+  $('#roBanner').innerHTML=C.state==='readonly'?`<div class="banner-ro" role="note">${ICON.info}<span>اشتراكك انتهى — ملفك ومهامك محفوظين وتقدر تكمّل تسجيل تمارينك</span></div>`:'';
+}
+
+/* ---------- actions (document-level delegation; routes set cur.redraw) ---------- */
+const A={}; const cur={redraw:()=>{}};
+document.addEventListener('click',e=>{
+  const g=e.target.closest('[data-go]'); if(g && g.dataset.go){ if(g.dataset.close!==undefined) Kit.closeAll(); location.hash='#'+g.dataset.go; return; }
+  const b=e.target.closest('[data-act]'); if(!b) return; const f=A[b.dataset.act]; if(f){ Promise.resolve(f(b,e)).catch(err=>{console.error(err);Kit.toast('حصلت مشكلة صغيرة، جرّب تاني');}); }
+});
+
+/* ---------- task row ---------- */
+function calHref(t){ return Kit.googleCalLink({title:t.title,start:t.due_at,minutes:t.minutes||15,details:'من بروتوكول إعادة التناغم — لقاء الروح'}); }
+function taskRow(t,{editable=false,compact=false}={}){
+  const done=!!t.done_at;
+  return `<div class="task ${done?'done':''}" data-id="${t.id}">
+    <button type="button" class="check" data-act="toggle" data-id="${t.id}" role="checkbox" aria-checked="${done}" aria-label="${done?'إلغاء إتمام':'تم'}: ${esc(t.title)}">${I.check}</button>
+    <div class="body"><div class="t">${esc(t.title)}</div>
+      <div class="m"><span>${axIcon(t.axis)} ${esc(axName(t.axis))}</span>
+      ${editable?`<button type="button" class="timechip" data-act="editTask" data-id="${t.id}" aria-label="تعديل وقت المهمة">${ICON.pencil}<span class="num">${fmtTime(t.due_at)}</span></button>`:`<span class="num">${fmtTime(t.due_at)}</span>`}
+      <span><span class="num">${t.minutes||15}</span> دقيقة</span>${t.program_id?`<span>${esc(t.note||'')}</span><button type="button" class="txtbtn" data-act="progText" data-id="${t.program_id}">النص</button>`:''}</div></div>
+    <a class="iconbtn calbtn" href="${esc(calHref(t))}" target="_blank" rel="noopener" aria-label="أضف للكالندر: ${esc(t.title)}" title="أضف للكالندر">${ICON.calplus}</a>
+  </div>`;
+}
+
+/* ---------- toggle task ---------- */
+A.toggle=async (b)=>{
+  const id=b.dataset.id; const before=(await DB.tasks()).find(t=>t.id===id); if(!before) return;
+  const wasDone=!!before.done_at;
+  await DB.toggleTask(id);
+  const C=await load();
+  await shell(C);
+  if(!wasDone){
+    const k=todayKey(); const list=C.on(k); const all=list.length>0 && list.every(t=>t.done_at);
+    const newB=await checkBadges(C);
+    if(all && !store.get('sm_dd_'+k)){
+      store.set('sm_dd_'+k,'1');
+      if(await DB.award('day_done')) newB.unshift('day_done');
+      const v=pick(VOICE.dayDone);
+      await cur.redraw();
+      Kit.celebrate({icon:'🌟',title:v.title,body:v.body+(newB.length?` ووسام جديد: ${newB.map(i=>bInfo(i).name).join('، ')}.`:''),cta:'يلا نكمّل'});
+      return;
+    }
+    await cur.redraw();
+    if(newB.length) celebrateBadges(newB); else Kit.toast(pick(VOICE.taskDone));
+  } else { await cur.redraw(); }
+};
+
+/* ---------- routes ---------- */
+const routes={};
+const view=$('#view');
+function guard(fn){ return async (el,rest)=>{ try{ await fn(el,rest); }catch(err){ console.error(err); el.innerHTML='<div class="card empty"><div class="big">🌿</div><p>حصلت مشكلة وإحنا بنفتح الصفحة. جرّب تحدّث الصفحة.</p></div>'; } }; }
+
+/* ===== TODAY ===== */
+routes.today=guard(async (el)=>{
+  const draw=async ()=>{
+    const C=await load(); await shell(C);
+    const k=todayKey(); const list=C.on(k); const st=C.stat(k); const allDone=st.total>0&&st.done===st.total;
+    const wp=weekPct(C), tp=pctOf(st.done,st.total);
+    const w=weekWindow(C);
+    const left=st.total-st.done;
+    const msg=st.total===0?'مفيش مهام النهارده — يوم هادي. تقدر تسجّل تمرين لو حابب.':allDone?'خلّصت يومك كله، برافو عليك ✦':st.done===0?'يلا نبدأ بواحدة صغيرة':`فاضل ${left} ${taskWord(left)} وتقفل يومك`;
+    const nm=C.me.name||'';
+    // nudges
+    let nudges='';
+    const left0=list.filter(t=>!t.done_at).length;
+    if(left0>0 && !store.get('sm_rem_'+k)){ const v=VOICE.reminderTasks(left0);
+      nudges+=`<div class="nudge" role="status"><div class="ic">🔔</div><div class="go"><b>${esc(v.title)}</b><span>${esc(v.body)}</span></div><button type="button" class="xbtn x" data-act="dismissRem" aria-label="إخفاء التذكير">${ICON.x}</button></div>`; }
+    if(C.state==='active' && C.acc.daysLeft!==null && C.acc.daysLeft<=7 && !store.get('sm_exp_'+C.acc.endsAt)){
+      nudges+=`<div class="nudge soft" role="status"><div class="ic">${ICON.info.replace('<svg','<svg width="22" height="22"')}</div><div class="go"><b>اشتراكك هيخلص بعد <span class="num">${C.acc.daysLeft}</span> ${C.acc.daysLeft<=2?'أيام':'أيام'}</b><span>ملفك ومهامك هيفضلوا محفوظين، وتقدر تجدّد وقت ما تحب.</span><br><button type="button" class="link" data-go="account" style="padding-inline:0">تفاصيل الاشتراك</button></div><button type="button" class="xbtn x" data-act="dismissExp" data-end="${esc(C.acc.endsAt)}" aria-label="إخفاء التنبيه">${ICON.x}</button></div>`; }
+    // one reminder a day (rotates; same one all day)
+    let remHtml='';
+    try{ const rs=(await DB.reminders()).filter(r=>r.on); if(rs.length){ const day=Math.floor(Date.now()/864e5); const r=rs[day%rs.length];
+      remHtml=`<a class="remday" href="#remember"><span class="ic" aria-hidden="true">🔔</span><span style="flex:1;min-width:0"><small>تذكير النهارده</small><b>${esc(r.text)}</b><small>${esc(r.sub||'')}</small></span></a>`; } }catch(e){}
+    // next upcoming day
+    let nextHtml='';
+    const upKeys=Object.keys(C.byDay).filter(x=>x>k).sort();
+    if(upKeys.length){ const nk=upKeys[0]; const nl=C.on(nk);
+      nextHtml=`<div class="section-title">الجاي <small><button type="button" class="link" data-go="tasks">كل المهام</button></small></div>
+      <div class="card" style="padding:6px 14px"><div class="note" style="margin:8px 0 2px;font-weight:700">${dayLabel(nk)} · <span class="num">${nl.length}</span> ${taskWord(nl.length)}</div>
+      ${nl.slice(0,3).map(t=>`<div class="row" style="padding:7px 0;min-height:44px"><span class="ax" style="width:30px;text-align:center">${axIcon(t.axis)}</span><span style="flex:1;min-width:0;font-weight:600;font-size:14px">${esc(t.title)}</span><span class="note num">${fmtTime(t.due_at)}</span></div>`).join('')}</div>`; }
+    // next badge
+    const nb=BADGES.find(b=>!C.earned(b.id));
+    const nbHtml=nb?`<div class="section-title">الوسام الجاي</div><div class="card nextcard"><div class="b">${nb.icon}</div><div style="flex:1;min-width:0"><b>${esc(nb.name)}</b><div class="note">${esc(nb.hint)}</div>${nb.id==='streak_7'?`<div class="bar" style="margin-top:8px"><i style="width:${Math.min(100,C.streak/7*100)}%"></i></div><div class="note num" style="margin-top:2px">${C.streak} / 7</div>`:nb.id==='entries_20'?`<div class="bar" style="margin-top:8px"><i style="width:${Math.min(100,C.entries.length/20*100)}%"></i></div><div class="note num" style="margin-top:2px">${C.entries.length} / 20</div>`:''}</div></div>`:'';
+    el.innerHTML=`
+      <h1 class="hello">${Kit.greeting()}${nm?` يا ${esc(nm)}`:''}</h1>
+      <p class="hello-sub">${fmtDate(new Date())}</p>
+      <section class="hero ${allDone?'complete':''}" aria-label="تقدّم النهارده">
+        <div class="row" style="gap:16px">
+          ${Kit.doubleRing(tp,wp,104)}
+          <div style="flex:1;min-width:0">
+            <div class="sub">مهام النهارده</div>
+            <div class="big"><span class="num" style="font-size:inherit;font-weight:inherit;opacity:1">${st.done}</span> <span>/ <span class="num" style="font-size:inherit">${st.total}</span></span></div>
+            <div class="msg">${esc(msg)}</div>
+          </div>
+        </div>
+        <div class="lg"><span><i style="background:var(--ok)"></i>النهارده</span><span><i style="background:var(--gold)"></i>الأسبوع <b class="num">${Math.round(wp*100)}%</b></span>${C.streak>0?`<span style="margin-inline-start:auto;font-weight:700">${esc(VOICE.streak(C.streak))}</span>`:''}</div>
+        <div class="week" aria-label="آخر 7 أيام">${w.map(x=>{ const full=x.total>0&&x.done===x.total; const part=!full&&(x.done>0||x.entries>0); return `<div class="d ${full?'full':part?'part':''} ${x.k===k?'today':''}"><i>${full?'✓':'<span class="num">'+x.d.getDate()+'</span>'}</i><span>${DAYS_SHORT[x.d.getDay()]}</span></div>`; }).join('')}</div>
+      </section>
+      ${nudges}${remHtml}
+      <div class="quick"><button type="button" class="btn" data-act="quickLog">سجّل تمرين</button><button type="button" class="btn soft" data-go="plan">حوّل ملفك لخطة</button></div>
+      <div class="section-title">مهام النهارده <small class="num">${st.done}/${st.total}</small></div>
+      ${list.length?list.map(t=>taskRow(t)).join(''):`<div class="card empty"><div class="big">🌿</div><p>مفيش مهام النهارده.<br>خد نفس، أو سجّل نتيجة تمرين في ملفك.</p></div>`}
+      ${nextHtml}${nbHtml}`;
+  };
+  cur.redraw=draw; await draw();
+});
+A.progText=async b=>{ if(!CUR) CUR=await DB.curriculum(); const pg=CUR.programs.find(p=>p.id===b.dataset.id); if(!pg) return;
+  let extra=''; if(pg.usesEntry){ const e=(await DB.entries()).find(x=>x.exercise_id===pg.usesEntry); const rows=e&&e.data&&e.data.sentences||[];
+    extra=rows.length?`<div class="section-title">جملك</div>${rows.map(r=>`<div class="intent" style="margin-top:6px">${esc(r.sentence||'')}</div>`).join('')}`:`<p class="note">لسه ما كتبتش جملك. <a href="#log/${pg.usesEntry}" data-close>اكتبها في ملفك</a></p>`; }
+  Kit.sheet(`<h3>${esc(pg.title)}</h3><p class="note" style="margin:4px 0 10px">${esc(pg.how)}</p><div class="intent">${esc(pg.text)}</div>${extra}<button type="button" class="btn ghost block" data-close style="margin-top:14px">تمام</button>`); };
+A.dismissRem=async()=>{ store.set('sm_rem_'+todayKey(),'1'); await cur.redraw(); };
+A.dismissExp=async(b)=>{ store.set('sm_exp_'+b.dataset.end,'1'); await cur.redraw(); };
+A.quickLog=async()=>{
+  const C=await load();
+  Kit.sheet(`<h3 style="margin-bottom:4px">سجّل تمرين</h3><p class="note" style="margin:0 0 10px">اختار التمرين اللي عايز تسجّل نتيجته</p>
+    ${C.exs.map(x=>`<a class="exrow" style="text-decoration:none;color:inherit;padding:10px 14px;min-height:54px" href="#log/${x.id}" data-close><span style="font-size:20px">${axIcon(x.axis)}</span><span class="t" style="flex:1">${esc(x.title)}</span></a>`).join('')}
+    <button type="button" class="btn ghost block" style="margin-top:12px" data-close>إغلاق</button>`);
+};
+
+/* ===== TASKS ===== */
+let tasksUI={axis:'all',past:false};
+routes.tasks=guard(async (el)=>{
+  const draw=async ()=>{
+    const C=await load(); await shell(C);
+    const k=todayKey();
+    const strip=[]; for(let i=-3;i<=3;i++){ const d=addD(new Date(),i); const key=dayKey(d); const s=C.stat(key); const full=s.total>0&&s.done===s.total; const part=!full&&s.done>0; strip.push(`<button type="button" class="d ${full?'full':part?'part':''} ${key===k?'today':''}" data-act="jumpDay" data-k="${key}" aria-label="${fmtDate(d)} — ${s.done} من ${s.total}"><i>${full?'✓':'<span class="num">'+d.getDate()+'</span>'}</i><b>${DAYS_SHORT[d.getDay()]}</b></button>`); }
+    const f=t=>tasksUI.axis==='all'||t.axis===tasksUI.axis;
+    const keys=Object.keys(C.byDay).filter(key=>C.on(key).some(f)).sort();
+    const up=keys.filter(x=>x>=k), past=keys.filter(x=>x<k).reverse();
+    const group=key=>{ const l=C.on(key).filter(f); const dn=l.filter(t=>t.done_at).length;
+      return `<div class="dayhead ${key===k?'today':''}" id="day-${key}"><b>${dayLabel(key)}</b><small><span class="num">${dn}/${l.length}</span></small></div>${l.map(t=>taskRow(t,{editable:true})).join('')}`; };
+    el.innerHTML=`
+      <h1 class="hello">المهام</h1><p class="hello-sub">خطواتك الصغيرة، يوم بيوم</p>
+      <div class="card" style="padding:12px 8px"><div class="week weekstrip">${strip.join('')}</div></div>
+      <button type="button" class="calbanner" data-act="calSheet">${I.cal}<span>اربط الكالندر<small>اشترك مرة واحدة وكل مهامك تظهر في تقويمك</small></span></button>
+      <div class="axchips" role="group" aria-label="تصفية حسب المحور">
+        <button type="button" class="chip ${tasksUI.axis==='all'?'on':''}" data-act="axisFilter" data-a="all">الكل</button>
+        ${(DB.AXES||[]).map(a=>`<button type="button" class="chip ${tasksUI.axis===a.id?'on':''}" data-act="axisFilter" data-a="${a.id}">${a.icon} ${a.name}</button>`).join('')}
+      </div>
+      ${up.length?up.map(group).join(''):`<div class="card empty" style="margin-top:14px"><div class="big">🌿</div><p>مفيش مهام جاية${tasksUI.axis!=='all'?' في المحور ده':''}.</p><button type="button" class="btn soft" data-go="plan">حوّل ملفك لخطة</button></div>`}
+      ${past.length?`<div style="margin-top:18px;text-align:center"><button type="button" class="btn ghost" data-act="togglePast">${tasksUI.past?'إخفاء':'عرض'} الأيام اللي فاتت (<span class="num">${past.length}</span>)</button></div>${tasksUI.past?past.map(group).join(''):''}`:''}`;
+  };
+  cur.redraw=draw; await draw();
+});
+A.axisFilter=async b=>{ tasksUI.axis=b.dataset.a; await cur.redraw(); };
+A.togglePast=async()=>{ tasksUI.past=!tasksUI.past; await cur.redraw(); };
+A.jumpDay=b=>{ const t=document.getElementById('day-'+b.dataset.k); if(t) t.scrollIntoView({behavior:'smooth',block:'start'}); else Kit.toast('مفيش مهام في اليوم ده'); };
+A.editTask=async b=>{
+  const t=(await DB.tasks()).find(x=>x.id===b.dataset.id); if(!t) return; const d=new Date(t.due_at);
+  Kit.sheet(`<h3>تعديل موعد المهمة</h3><p class="muted" style="margin:4px 0 14px">${esc(t.title)}</p>
+    <div class="field"><label for="edDate">اليوم</label><input class="input num" id="edDate" type="date" value="${dayKey(d)}"></div>
+    <div class="field"><label for="edTime">الساعة</label><input class="input num" id="edTime" type="time" value="${pad(d.getHours())}:${pad(d.getMinutes())}"></div>
+    <div class="opt"><button type="button" class="btn" data-act="saveTask" data-id="${t.id}">حفظ</button><button type="button" class="btn ghost" data-close>إلغاء</button></div>`);
+};
+A.saveTask=async b=>{
+  const dt=$('#edDate').value, tm=$('#edTime').value; if(!dt||!tm){ Kit.toast('اختار اليوم والساعة'); return; }
+  await DB.updateTask(b.dataset.id,{due_at:new Date(`${dt}T${tm}:00`).toISOString()}); Kit.closeAll(); Kit.toast('اتعدّل الموعد ✓'); await cur.redraw();
+};
+A.calSheet=async()=>{
+  const url=await DB.icalUrl();
+  Kit.sheet(`<h3>اربط الكالندر</h3>
+    <p class="muted" style="margin:4px 0 12px">اشترك في الرابط ده مرة واحدة، وكل مهام التناغم (حتى اللي هتتضاف بعدين) هتظهر في تقويمك لوحدها. من غير ما تدي تطبيقنا أي صلاحية على حسابك.</p>
+    <div class="copybar"><input class="input" id="icalUrl" readonly value="${esc(url)}" aria-label="رابط الاشتراك في التقويم" onclick="this.select()"><button type="button" class="btn sm" data-act="copyIcal" style="min-height:44px">${I.copy} نسخ</button></div>
+    <div class="section-title" style="margin-top:18px">Google Calendar</div>
+    <ol class="steps"><li>افتح Google Calendar من الكمبيوتر.</li><li>جنب «تقويمات أخرى» دوس «+» واختار «من عنوان URL».</li><li>الصق الرابط واضغط «إضافة تقويم».</li></ol>
+    <div class="section-title" style="margin-top:6px">iPhone</div>
+    <ol class="steps"><li>الإعدادات ← التقويم ← الحسابات.</li><li>إضافة حساب ← أخرى ← «إضافة تقويم مشترَك».</li><li>الصق الرابط واضغط «التالي» ثم «حفظ».</li></ol>
+    <p class="note">لو عايز مهمة واحدة بس، استخدم زر التقويم اللي جنبها.</p>
+    <button type="button" class="btn ghost block" data-close style="margin-top:8px">تمام</button>`);
+};
+A.copyIcal=()=>Kit.copyText($('#icalUrl').value);
+
+/* ===== FILE (personal database) ===== */
+routes.file=guard(async (el)=>{
+  const draw=async ()=>{
+    const C=await load(); await shell(C);
+    const groups={}; C.exs.forEach(x=>(groups[x.source]=groups[x.source]||[]).push(x));
+    const order=C.courses.map(c=>c.id).filter(id=>groups[id]).concat(Object.keys(groups).filter(id=>!C.courseMap[id]));
+    const cnt=id=>C.entries.filter(e=>e.exercise_id===id);
+    const total=C.entries.length;
+    el.innerHTML=`
+      <h1 class="hello">ملفي</h1><p class="hello-sub">قاعدة بياناتك الشخصية — كل نتايج تمارينك في مكان واحد، وعندك بس.</p>
+      <div class="card" style="display:flex;align-items:center;gap:14px">
+        <div style="flex:1;min-width:0"><b style="font-size:15.5px">حوّل ملفك لخطة</b><div class="note">${C.state==='active'?'خد نتايجك للـ AI بتاعك وارجع بخطة أسبوعين.':'ميزة الخطة جزء من الاشتراك الفعّال.'}</div></div>
+        <button type="button" class="btn ${C.state==='active'?'':'soft'}" data-go="plan">${C.state==='active'?'ابدأ':I.lock.replace('<svg','<svg width="16" height="16"')+' اعرف أكتر'}</button></div>
+      <div class="section-title" style="margin-top:16px">تمارينك <small class="num">${total} نتيجة</small></div>
+      ${order.map(src=>{ const c=C.courseMap[src]; return `<div class="note" style="margin:16px 4px 2px;font-weight:700;color:var(--gold-deep)">${esc(c?c.title:'تمارين أخرى')}</div>${groups[src].map(x=>{ const es=cnt(x.id); const last=es[0];
+        return `<div class="exrow"><a class="main" href="#exercise/${x.id}"><span class="ax" style="width:38px;height:38px;border-radius:12px;background:var(--bg-2);display:grid;place-items:center;font-size:19px;flex:0 0 auto">${x.axis?axIcon(x.axis):'✦'}</span><span style="min-width:0"><span class="t" style="display:block">${esc(x.title)}</span><span class="m">${es.length?`<span class="num">${es.length}</span> ${es.length===1?'نتيجة':'نتايج'} · آخر مرة ${fmtShort(last.created_at)}`:'لسه ما سجّلتش'}</span></span></a><a class="plus" href="#log/${x.id}" aria-label="سجّل جديد: ${esc(x.title)}">${I.plus}</a></div>`; }).join('')}`; }).join('')}`;
+  };
+  cur.redraw=draw; await draw();
+});
+
+const isEmpty=v=>v===undefined||v===null||v===''||(Array.isArray(v)&&!v.length)||(typeof v==='object'&&!Array.isArray(v)&&!Object.keys(v).length);
+function cellText(v){ return Array.isArray(v)?v.join('، '):String(v); }
+/* table rows as plain lines: [{label, parts:[[colLabel,value]]}] */
+function tableLines(f,v){
+  const out=[];
+  if(Array.isArray(v)) v.forEach((r,i)=>{ const parts=(f.cols||[]).filter(c=>!isEmpty(r[c.key])).map(c=>[c.label,cellText(r[c.key])]); if(parts.length) out.push({label:`${f.rowLabel||'صف'} ${i+1}`,parts}); });
+  else if(v&&typeof v==='object') (f.rows||[]).forEach(row=>{ const r=v[row.key]||{}; const parts=(f.cols||[]).filter(c=>!isEmpty(r[c.key])).map(c=>[c.label,cellText(r[c.key])]); if(parts.length) out.push({label:row.label,parts}); });
+  return out;
+}
+function fieldValueHtml(f,v){
+  if(isEmpty(v)) return '<span class="faint">—</span>';
+  if(f.type==='table'){ const L=tableLines(f,v); return L.length?L.map(l=>`<div class="tv"><b>${esc(l.label)}</b> · ${l.parts.map(([k,x])=>`${esc(k)}: ${esc(x)}`).join(' · ')}</div>`).join(''):'<span class="faint">—</span>'; }
+  if(f.type==='axes'&&typeof v==='object'){
+    return `<div class="mini-axes">${(DB.AXES||[]).map(a=>`<div><small><span>${a.icon} ${a.name}</span><b class="num">${v[a.id]??'-'}</b></small><div class="bar"><i style="width:${(v[a.id]||0)*10}%;background:${axColor(a.id)}"></i></div></div>`).join('')}</div>`; }
+  if(f.type==='scale') return `<b class="num">${esc(v)}</b> <span class="faint num">/ ${f.max??5}</span>`;
+  if(f.type==='number') return `<span class="num">${Number(v).toLocaleString('en-US')}</span>`;
+  if(f.type==='date') return `<span class="num">${esc(v)}</span>`;
+  if(f.type==='time') return `<span class="num">${esc(v)}</span>`;
+  if(Array.isArray(v)) return v.map(x=>`<span class="pill" style="margin:2px 0 0 4px">${esc(x)}</span>`).join('');
+  return esc(v);
+}
+/* ===== EXERCISE history ===== */
+let delAsk=null;
+routes.exercise=guard(async (el,rest)=>{
+  const id=rest[0];
+  const draw=async ()=>{
+    const C=await load(); await shell(C); const x=C.exMap[id];
+    if(!x){ el.innerHTML=`<div class="card empty"><div class="big">🌿</div><p>التمرين ده مش موجود.</p><a class="btn soft" href="#file">رجوع لملفي</a></div>`; return; }
+    const es=C.entries.filter(e=>e.exercise_id===id);
+    el.innerHTML=`<a class="backlink" href="#file">${I.arrow} ملفي</a>
+      <div class="pagehead"><div class="ax">${x.axis?axIcon(x.axis):'✦'}</div><div style="min-width:0"><h1>${esc(x.title)}</h1><div class="note">${esc((C.courseMap[x.source]||{}).title||'')} · <span class="num">${es.length}</span> ${es.length===1?'نتيجة':'نتايج'}</div></div></div>
+      <a class="btn block" href="#log/${x.id}" style="margin:10px 0 4px">${I.plus.replace('<svg','<svg width="18" height="18"')} سجّل جديد</a>
+      ${es.length?es.map(e=>`<article class="entry"><div class="when"><span>${fmtDate(e.created_at)} · <span class="num">${fmtTime(e.created_at)}</span></span>
+        ${delAsk===e.id?`<span class="inline-confirm"><button type="button" class="btn danger sm" data-act="delEntry" data-id="${e.id}" style="min-height:40px">أكيد، احذف</button><button type="button" class="btn ghost sm" data-act="delAsk" data-id="" style="min-height:40px">تراجع</button></span>`:`<button type="button" class="link" data-act="delAsk" data-id="${e.id}" aria-label="حذف النتيجة">حذف</button>`}</div>
+        <dl>${x.fields.filter(f=>!isEmpty((e.data||{})[f.key])).map(f=>`<dt>${esc(f.label||'')}</dt><dd>${fieldValueHtml(f,(e.data||{})[f.key])}</dd>`).join('')}</dl></article>`).join('')
+        :`<div class="card empty" style="margin-top:12px"><div class="big">✍️</div><p>لسه ما سجّلتش نتيجة للتمرين ده.<br>أول نتيجة بتبدأ بيها ملفك.</p></div>`}`;
+  };
+  cur.redraw=draw; delAsk=null; await draw();
+});
+A.delAsk=async b=>{ delAsk=b.dataset.id||null; await cur.redraw(); };
+A.delEntry=async b=>{ await DB.deleteEntry(b.dataset.id); delAsk=null; Kit.toast('اتحذفت النتيجة'); await cur.redraw(); };
+
+/* ===== LOG form ===== */
+let form={id:null,x:null,vals:{}};
+/* table values: fixed rows → {rowKey:{col:v}} · addable rows → [{col:v}] */
+function tGet(key,row,col){ const t=form.vals[key]; if(!t) return undefined; const r=Array.isArray(t)?t[+row]:t[row]; return r?r[col]:undefined; }
+function tSet(key,row,col,v){ const f=form.x.fields.find(z=>z.key===key); if(!form.vals[key]) form.vals[key]=f.addable?[]:{};
+  const t=form.vals[key]; const r=Array.isArray(t)?(t[+row]=t[+row]||{}):(t[row]=t[row]||{}); if(v===undefined||v==='') delete r[col]; else r[col]=v; }
+function cellHtml(f,rowKey,c){
+  const v=tGet(f.key,rowKey,c.key), path=`${f.key}|${rowKey}|${c.key}`, id=`c_${f.key}_${rowKey}_${c.key}`;
+  const opts=c.options||(c.optionsByRow&&c.optionsByRow[rowKey])||[];
+  if(c.type==='select') return `<div class="${opts.some(o=>o.length>13)?'wide':''}"><label for="${id}">${esc(c.label)}</label><select class="select" id="${id}" data-tin="${path}"><option value="">اختار…</option>${opts.map(o=>`<option ${v===o?'selected':''}>${esc(o)}</option>`).join('')}</select></div>`;
+  if(c.type==='number') return `<div><label for="${id}">${esc(c.label)}</label><input class="input num" id="${id}" type="number" inputmode="numeric" ${c.min!=null?`min="${c.min}"`:''} ${c.max!=null?`max="${c.max}"`:''} data-tin="${path}" data-num="1" value="${v??''}"></div>`;
+  if(c.type==='chips') return `<div class="wide"><label>${esc(c.label)}</label><div class="chips">${opts.map(o=>{ const on=Array.isArray(v)&&v.includes(o); return `<button type="button" class="chip ${on?'on':''}" data-act="setTChip" data-path="${path}" data-v="${esc(o)}" aria-pressed="${on}">${esc(o)}</button>`; }).join('')}</div></div>`;
+  return `<div class="${opts.length?'':'wide'}"><label for="${id}">${esc(c.label)}</label><input class="input" id="${id}" data-tin="${path}" autocomplete="off" value="${esc(v??'')}"></div>`;
+}
+function tableHtml(f){
+  if(f.addable){ let rows=form.vals[f.key]; if(!Array.isArray(rows)||!rows.length){ rows=form.vals[f.key]=Array.from({length:Math.max(1,f.min||1)},()=>({})); }
+    return rows.map((r,i)=>`<div class="trow"><div class="trh"><b>${esc(f.rowLabel||'صف')} <span class="num">${i+1}</span></b><small></small>${rows.length>1?`<button type="button" class="xbtn" style="width:34px;height:34px" data-act="rmRow" data-key="${f.key}" data-i="${i}" aria-label="شيل ${esc(f.rowLabel||'الصف')} ${i+1}">${ICON.x}</button>`:''}</div><div class="tcells">${f.cols.map(c=>cellHtml(f,String(i),c)).join('')}</div></div>`).join('')
+      +`<button type="button" class="btn soft sm addrowbtn" data-act="addRow" data-key="${f.key}">${I.plus.replace('<svg','<svg width="16" height="16"')} ${esc(f.rowLabel||'صف')} كمان</button>`; }
+  return (f.rows||[]).map(r=>`<div class="trow"><div class="trh"><b>${esc(r.label)}</b><small>${esc(r.sub||'')}</small></div><div class="tcells">${f.cols.map(c=>cellHtml(f,r.key,c)).join('')}</div></div>`).join('');
+}
+function fieldHtml(f){
+  const v=form.vals[f.key];
+  const hint=f.hint?`<div class="fhint">${esc(f.hint)}</div>`:'';
+  const lab=f.label?`<label for="f_${f.key}">${esc(f.label)}</label>${hint}`:hint;
+  if(f.type==='text') return `<div class="field">${lab}<input class="input" id="f_${f.key}" data-in="${f.key}" autocomplete="off" value="${esc(v??'')}"></div>`;
+  if(f.type==='textarea') return `<div class="field">${lab}<textarea class="textarea" id="f_${f.key}" data-in="${f.key}">${esc(v??'')}</textarea></div>`;
+  if(f.type==='number') return `<div class="field">${lab}<input class="input num" id="f_${f.key}" data-in="${f.key}" data-num="1" type="number" inputmode="decimal" ${f.min!=null?`min="${f.min}"`:''} ${f.max!=null?`max="${f.max}"`:''} value="${v??''}" style="text-align:start"></div>`;
+  if(f.type==='date'||f.type==='time') return `<div class="field">${lab}<input class="input num" id="f_${f.key}" data-in="${f.key}" type="${f.type}" value="${esc(v??'')}"></div>`;
+  if(f.type==='select') return `<div class="field">${lab}<select class="select" id="f_${f.key}" data-in="${f.key}"><option value="">اختار…</option>${(f.options||[]).map(o=>`<option ${v===o?'selected':''}>${esc(o)}</option>`).join('')}</select></div>`;
+  if(f.type==='table') return `<div class="field" id="fld_${f.key}"><label>${esc(f.label)}</label>${hint}<div data-tbl="${f.key}">${tableHtml(f)}</div></div>`;
+  if(f.type==='scale'){ const mn=f.min??1, mx=f.max??5; const arr=[]; for(let i=mn;i<=mx;i++) arr.push(i);
+    return `<div class="field"><label id="l_${f.key}">${esc(f.label)}</label>${hint}<div class="scale g" role="group" aria-labelledby="l_${f.key}">${arr.map(n=>`<button type="button" data-act="setScale" data-key="${f.key}" data-v="${n}" class="num ${v===n?'on':''}">${n}</button>`).join('')}</div></div>`; }
+  if(f.type==='chips') return `<div class="field">${f.label?`<label id="l_${f.key}">${esc(f.label)}${f.multi?' <span class="faint" style="font-weight:400">(تقدر تختار أكتر من واحد)</span>':''}</label>`:''}${hint}<div class="chips" role="group" ${f.label?`aria-labelledby="l_${f.key}"`:''}>${(f.options||[]).map(o=>{ const on=f.multi?Array.isArray(v)&&v.includes(o):v===o; return `<button type="button" class="chip ${on?'on':''}" data-act="setChip" data-key="${f.key}" data-multi="${f.multi?1:0}" data-v="${esc(o)}" aria-pressed="${on}">${esc(o)}</button>`; }).join('')}</div></div>`;
+  if(f.type==='axes') return `<div class="field"><label>${esc(f.label)}</label>${(DB.AXES||[]).map(a=>`<div class="axrow"><div class="lbl"><span style="font-size:20px">${a.icon}</span>${a.name}</div><div class="scale g" role="group" aria-label="${a.name}">${[1,2,3,4,5,6,7,8,9,10].map(n=>`<button type="button" data-act="setAxis" data-key="${f.key}" data-ax="${a.id}" data-v="${n}" class="num">${n}</button>`).join('')}</div></div>`).join('')}</div>`;
+  return '';
+}
+routes.log=guard(async (el,rest)=>{
+  const id=rest[0]; const C=await load(); await shell(C); const x=C.exMap[id];
+  cur.redraw=async()=>{};
+  if(!x){ el.innerHTML=`<div class="card empty"><div class="big">🌿</div><p>مش لاقيين التمرين ده. اختار من ملفك.</p><a class="btn soft" href="#file">رجوع لملفي</a></div>`; return; }
+  form={id,x,vals:{}};
+  // tables and texts start from the latest entry, so the member updates instead of retyping
+  const last=C.entries.find(e=>e.exercise_id===id);
+  x.fields.forEach(f=>{ if(f.type==='table'&&last&&last.data&&last.data[f.key]) form.vals[f.key]=JSON.parse(JSON.stringify(last.data[f.key])); else if(f.default) form.vals[f.key]=f.default; });
+  const lesson=(C.cur.lessons||[]).find(l=>l.id===x.lesson);
+  el.innerHTML=`<a class="backlink" href="#exercise/${x.id}">${I.arrow} ${esc(x.title)}</a>
+    <div class="pagehead"><div class="ax">${x.axis?axIcon(x.axis):'✦'}</div><div style="min-width:0"><h1>${esc(x.title)}</h1><div class="note">${lesson?`${esc(lesson.no)} · ${esc(lesson.title)}`:esc((C.courseMap[x.source]||{}).title||'')}</div></div></div>
+    <div class="card" style="margin-top:10px">${x.note?`<div class="exnote">${esc(x.note)}</div>`:''}${last&&x.fields.some(f=>f.type==='table')?`<div class="note" style="margin-bottom:10px">الجدول فيه آخر حاجة سجّلتها. عدّل أو كمّل عليها.</div>`:''}${x.fields.map(fieldHtml).join('')}
+      <div class="note" style="margin:2px 0 12px">النتيجة بتتحفظ في ملفك الشخصي، وانت بس اللي تشوفها.</div>
+      <button type="button" class="btn block" id="saveEntry" data-act="saveEntry" style="min-height:48px">احفظ في ملفي</button></div>`;
+});
+document.addEventListener('input',e=>{ if(!e.target.closest||!e.target.closest('#view')) return; const d=e.target.dataset||{};
+  if(d.in){ form.vals[d.in]=d.num?(e.target.value===''?undefined:Number(e.target.value)):e.target.value; }
+  else if(d.tin){ const [k,r,c]=d.tin.split('|'); tSet(k,r,c,d.num?(e.target.value===''?undefined:Number(e.target.value)):e.target.value); } });
+const redrawTable=key=>{ const f=form.x.fields.find(z=>z.key===key); const box=document.querySelector(`[data-tbl="${key}"]`); if(f&&box) box.innerHTML=tableHtml(f); };
+A.addRow=b=>{ const k=b.dataset.key; (form.vals[k]=form.vals[k]||[]).push({}); redrawTable(k); const rows=$$(`[data-tbl="${k}"] .trow`); const last=rows[rows.length-1]; if(last){ const inp=last.querySelector('input,select'); if(inp) inp.focus(); } };
+A.rmRow=b=>{ const k=b.dataset.key; form.vals[k].splice(+b.dataset.i,1); redrawTable(k); };
+A.setTChip=b=>{ const [k,r,c]=b.dataset.path.split('|'); const cur0=tGet(k,r,c); const a=Array.isArray(cur0)?cur0.slice():[]; const i=a.indexOf(b.dataset.v); if(i>-1) a.splice(i,1); else a.push(b.dataset.v); tSet(k,r,c,a.length?a:undefined); b.classList.toggle('on',i===-1); b.setAttribute('aria-pressed',i===-1); };
+A.setScale=b=>{ form.vals[b.dataset.key]=Number(b.dataset.v); $$(`[data-act="setScale"][data-key="${b.dataset.key}"]`).forEach(x=>x.classList.toggle('on',x===b)); };
+A.setAxis=b=>{ const k=b.dataset.key; form.vals[k]=form.vals[k]||{}; form.vals[k][b.dataset.ax]=Number(b.dataset.v); $$(`[data-act="setAxis"][data-key="${k}"][data-ax="${b.dataset.ax}"]`).forEach(x=>x.classList.toggle('on',x===b)); };
+A.setChip=b=>{ const k=b.dataset.key, v=b.dataset.v, multi=b.dataset.multi==='1';
+  if(multi){ const a=form.vals[k]=form.vals[k]||[]; const i=a.indexOf(v); if(i>-1) a.splice(i,1); else a.push(v); b.classList.toggle('on',i===-1); b.setAttribute('aria-pressed',i===-1); }
+  else { const same=form.vals[k]===v; form.vals[k]=same?undefined:v; $$(`[data-act="setChip"][data-key="${k}"]`).forEach(x=>{ const on=!same&&x===b; x.classList.toggle('on',on); x.setAttribute('aria-pressed',on); }); } };
+function cleanVal(f,v){
+  if(f.type!=='table') return isEmpty(v)?undefined:v;
+  if(Array.isArray(v)){ const rows=v.map(r=>Object.fromEntries(Object.entries(r||{}).filter(([,x])=>!isEmpty(x)))).filter(r=>Object.keys(r).length); return rows.length?rows:undefined; }
+  if(v&&typeof v==='object'){ const o={}; Object.entries(v).forEach(([k,r])=>{ const c=Object.fromEntries(Object.entries(r||{}).filter(([,x])=>!isEmpty(x))); if(Object.keys(c).length) o[k]=c; }); return Object.keys(o).length?o:undefined; }
+  return undefined;
+}
+A.saveEntry=async b=>{
+  const vals={}; form.x.fields.forEach(f=>{ const v=cleanVal(f,form.vals[f.key]); if(v!==undefined) vals[f.key]=v; });
+  if(!Object.keys(vals).length){ Kit.toast('اكتب أو اختار حاجة واحدة على الأقل'); return; }
+  b.disabled=true;
+  const id=form.id; await DB.addEntry(id,vals);
+  const C=await load(); const newB=await checkBadges(C);
+  location.hash='#exercise/'+id;
+  if(newB.includes('first_entry')) Kit.celebrate({icon:'✍️',title:'أول تمرين في ملفك!',body:'بدأ ملفك الشخصي ياخد شكل. كل نتيجة بتوضّح الصورة أكتر.',cta:'تمام'});
+  else if(newB.length) celebrateBadges(newB);
+  else Kit.toast(pick(VOICE.entrySaved));
+};
+
+/* ===== PLAN ===== */
+const PS={sel:null,prompt:'',reply:'',parsed:null,dropped:0,err:''};
+function lines(C,sel){
+  const out=[]; C.exs.filter(x=>sel.has(x.id)).forEach(x=>{
+    const all=C.entries.filter(e=>e.exercise_id===x.id);
+    const take=x.fields.some(f=>f.type==='table')?1:(x.id==='ex_hawkins'?6:5);   // tables are cumulative → latest only
+    all.slice(0,take).forEach(e=>{
+      out.push(`### ${x.title}${x.axis?` (محور: ${axName(x.axis)})`:''} — بتاريخ ${dayKey(e.created_at)}`);
+      x.fields.forEach(f=>{ const v=(e.data||{})[f.key]; if(isEmpty(v)) return;
+        if(f.type==='table'){ out.push(`- ${f.label}:`); tableLines(f,v).forEach(l=>out.push(`  - ${l.label}: ${l.parts.map(([k,x])=>`${k}: ${x}`).join('، ')}`)); return; }
+        let s; if(f.type==='axes'&&typeof v==='object') s=(DB.AXES||[]).map(a=>`${a.name}: ${v[a.id]??'-'}/10`).join('، ');
+        else if(f.type==='scale') s=`${v} من ${f.max??5}`; else if(Array.isArray(v)) s=v.join('، '); else s=String(v);
+        out.push(`- ${f.label||f.key}: ${s}`); });
+      out.push(''); }); });
+  return out.join('\n').trim();
+}
+/* the fixed instructions the member's AI receives — written once from the curriculum (content-map-body.html) */
+function buildPrompt(C,sel){
+  const t0=new Date(), t1=addD(t0,13);
+  const doneAch=C.cur.achievements.filter(a=>C.gotAch(a.id)).map(a=>`- ${a.title}`).join('\n')||'- لسه مفيش';
+  const active=C.runs.filter(r=>!r.stopped_at).map(r=>{ const pg=C.cur.programs.find(p=>p.id===r.program_id); const ts=C.tasks.filter(t=>t.run_id===r.id); const left=ts.filter(t=>!t.done_at&&new Date(t.due_at)>=t0);
+    return left.length&&pg?`- ${pg.title}: ${pg.days} ${pg.days>10?'يوم':'أيام'}، الساعة ${(r.times||pg.times).join(' و')}، فاضل ${left.length} ${left.length>10||left.length<3?'مرة':'مرات'}`:null; }).filter(Boolean).join('\n')||'- مفيش';
+  const ex=`[\n  {"title":"ادخل السجلات واسأل عن خطوة الحرية","axis":"spirit","date":"${dayKey(t0)}","time":"07:30","minutes":15},\n  {"title":"كورة الحماية قبل النوم","axis":"spirit","date":"${dayKey(addD(t0,1))}","time":"22:30","minutes":5}\n]`;
+  return `أنت مساعد بيطبّق منهج «إعادة التناغم» لمحمد فاروق (لقاء الروح). قدامك ملف المشترك من تطبيق «مساعد التناغم»: نتايج تمارينه، والإنجازات اللي خلّصها، والممارسات اللي شغالة عنده دلوقتي.
+
+مهمتك: تحوّل الملف ده لخطة عملية مدتها 14 يوم من مهام يومية صغيرة.
+
+القواعد الثابتة (من المنهج، التزم بيها):
+1) ابدأ بالكواكب اللي نسبة تناغمها أقل في «الإبحار النجمي»، والمعيقات والأعضاء المرتبطة بيها. دي أولوية الخطة.
+2) ما تكررش حاجة موجودة في «الإنجازات اللي خلّصها».
+3) الممارسات الشغالة موجودة بالفعل في مهامه. ما تضيفهاش تاني، وما تزوّدش اليوم عن 3 مهام شاملة الممارسات دي.
+4) مدد المنهج ثابتة: نية التنظيف الطاقي 7 أيام، نية تنظيف العهود 21 ليلة، جمل BATHWAVE 21 يوم الصبح وقبل النوم. ما تخترعش مدد تانية للممارسات دي.
+5) ما تكتبش أسامي البلوكات (العهود أو الإيذاء) في أي مهمة. لو عنده جمل إيجابية في ملفه، استخدمها زي ما هي.
+6) لو فيه علاقة معيقها «موجود ومؤثر» ولسه ما سامحش، حط مهمة مسامحة أو طلب مغفرة للشخص ده بالاسم.
+7) الأدوات المسموح تقترحها: دخول السجلات بالأسانسير وسؤال بالصيغة الصح، البندول أو اختبار العضلات، تنظيف الشاكرات، كورة الحماية، تأمل المسامحة وطلب المغفرة، EFT على جملته، الكتابة، وقياس الوعي على مقياس هوكنز. ممنوع أي تشخيص طبي أو نصيحة دوا: العضو المتأثر بيتعامل معاه بممارسة طاقية، مش علاج.
+8) المهمة فعل واضح وقصير بالعربي، من 5 لـ 25 دقيقة، وليها وقت مناسب في اليوم (الصبح، أو بعد الشغل، أو قبل النوم).
+9) الأسلوب: عربي بسيط ودافي، من غير أحكام.
+
+الإنجازات اللي خلّصها:
+${doneAch}
+
+الممارسات الشغالة عنده دلوقتي:
+${active}
+
+ملف المشترك:
+------------------------------
+${lines(C,sel)}
+------------------------------
+
+المدة: من ${dayKey(t0)} (${DAYS[t0.getDay()]}) لحد ${dayKey(t1)} (${DAYS[t1.getDay()]}). لو تقدر تشوف الكالندر بتاعه، ما تحطش مهام وقت مواعيده.
+
+شكل الرد (مهم جدًا): ابدأ بسطرين بالكتير فيهم أهم حاجة لاحظتها. بعدها حط الخطة كلها في كتلة كود واحدة بصيغة JSON، مصفوفة بالظبط زي المثال، من غير أي تعليق جوه الكتلة:
+\`\`\`json
+${ex}
+\`\`\`
+القيم المسموحة: axis واحدة من mind | heart | body | spirit — date بصيغة YYYY-MM-DD — time بصيغة HH:MM (24 ساعة) — minutes رقم صحيح.`;
+}
+const AXMAP={mind:'mind',heart:'heart',body:'body',spirit:'spirit','عقل':'mind','العقل':'mind','ذهن':'mind','مشاعر':'heart','المشاعر':'heart','قلب':'heart','جسد':'body','الجسد':'body','جسم':'body','روح':'spirit','الروح':'spirit','روحي':'spirit'};
+function fixJson(s){ return s.replace(/,\s*([\]}])/g,'$1').replace(/'([^'"\n]*)'/g,'"$1"').replace(/([{,]\s*)([A-Za-z_]+)\s*:/g,'$1"$2":'); }
+function parsePlan(text){
+  let t=String(text||'').replace(/[“”«»]/g,'"').replace(/[‘’]/g,"'").replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
+  const fences=[...t.matchAll(/```[a-zA-Z]*\s*([\s\S]*?)```/g)].map(m=>m[1]).filter(s=>s.includes('['));
+  const cand=(fences[0]||t);
+  const a=cand.indexOf('['), b=cand.lastIndexOf(']');
+  let arr=null;
+  if(a>-1&&b>a){ const body=cand.slice(a,b+1); for(const s of [body,fixJson(body)]){ try{ const j=JSON.parse(s); if(Array.isArray(j)){ arr=j; break; } }catch(e){} } }
+  if(!arr){ const objs=(cand.match(/\{[^{}]*\}/g)||[]); arr=[]; objs.forEach(o=>{ for(const s of [o,fixJson(o)]){ try{ arr.push(JSON.parse(s)); break; }catch(e){} } }); }
+  const out=[]; let dropped=0;
+  arr.forEach(r=>{
+    if(!r||typeof r!=='object'){ dropped++; return; }
+    const title=String(r.title??r.task??r.name??r['عنوان']??'').trim();
+    const dm=String(r.date??r.day??'').match(/(\d{4})-(\d{1,2})-(\d{1,2})/);
+    if(!title||!dm){ dropped++; return; }
+    const date=`${dm[1]}-${pad(dm[2])}-${pad(dm[3])}`;
+    if(isNaN(new Date(date+'T12:00:00'))){ dropped++; return; }
+    const tm=String(r.time??r.at??'').match(/(\d{1,2})[:.](\d{2})/); let time='09:00'; if(tm&&+tm[1]<24&&+tm[2]<60) time=`${pad(tm[1])}:${tm[2]}`;
+    const ax=AXMAP[String(r.axis??'').trim().toLowerCase()]||AXMAP[String(r.axis??'').trim()]||'mind';
+    let mins=parseInt(r.minutes??r.duration,10); if(!(mins>0)) mins=15; mins=Math.min(mins,240);
+    out.push({uid:Math.random().toString(36).slice(2,9),title:title.slice(0,120),axis:ax,date,time,minutes:mins});
+  });
+  out.sort((x,y)=>(x.date+x.time).localeCompare(y.date+y.time));
+  return {tasks:out,dropped};
+}
+function sampleReply(){
+  const t0=new Date(); const pool=[
+    [['ادخل السجلات واسأل عن خطوة الأمان','spirit','07:30',15],['اكتب 3 حاجات حسّيت فيها بالأمان النهارده','mind','21:30',10]],
+    [['تنظيف شاكرا الجذر 7 دوائر','body','07:00',10],['مسامحة منى أحمد','heart','21:00',10]],
+    [['قيس وعيك على مقياس هوكنز','spirit','08:00',5],['امشي 20 دقيقة وحس برجليك على الأرض','body','18:00',20]],
+    [['اكتب سؤال الحرية بالصيغة الصح','mind','12:30',10],['كورة الحماية قبل النوم','spirit','22:30',5]],
+    [['تنظيف شاكرا التاج 7 دوائر','spirit','07:00',10],['اعمل حاجة واحدة بحرية من غير ما تستأذن','heart','17:00',15]],
+    [['تمدد لطيف للرقبة والكتف','body','21:30',10],['ادخل السجلات واسأل عن خطوة الحرية','spirit','07:30',15]],
+    [['راحة: اكتب سطر واحد عن أسبوعك','heart','22:00',5]]
+  ]; const rows=[];
+  for(let d=0;d<14;d++){ pool[d%7].forEach(([title,axis,time,minutes])=>rows.push({title,axis,date:dayKey(addD(t0,d)),time,minutes})); }
+  return `تمام، قريت ملفك. أقل تناغم عندك في المريخ (40%) وأورانوس (45%): الأمان والجذور، والحرية. الخطة بتبدأ بيهم، وجنبها نية التنظيف الشغالة عندك:\n\n\`\`\`json\n${JSON.stringify(rows,null,2)}\n\`\`\`\n\nقدّ كلمتك مع نفسك، ولو فاتك يوم كمّل من اللي بعده.`;
+}
+routes.plan=guard(async (el)=>{
+  const draw=async ()=>{
+    const C=await load(); await shell(C);
+    if(C.state!=='active'){
+      const ex=C.state==='readonly';
+      el.innerHTML=`<a class="backlink" href="#file">${I.arrow} ملفي</a>
+        <div class="card lockcard"><div class="lk">${I.lock}</div><h2 style="font-size:19px">حوّل ملفك لخطة</h2>
+        <p class="muted" style="margin:6px 0">${ex?'اشتراكك انتهى، فالخطة متوقفة دلوقتي. ملفك ومهامك محفوظين، وتقدر تكمّل تسجيل تمارينك عادي.':'ميزة هادية بتحوّل نتايج تمارينك لخطة عملية من مهام يومية صغيرة.'}</p>
+        <ul><li>تختار بنفسك أنهي تمارين تتشارك.</li><li>الطلب بيتجهّز جاهز، وتديه للـ AI اللي بتستخدمه انت.</li><li>الرد بيرجع هنا ويتحوّل لمهام في كالندرك.</li></ul>
+        <p class="note" style="margin-bottom:14px">بتتفتح مع أي كورس مدفوع، أو باشتراك مساعد التناغم ربع سنوي أو سنوي.</p>
+        <button type="button" class="btn" data-act="plansInfo">اعرف الباقات</button></div>`;
+      return;
+    }
+    const withE=C.exs.filter(x=>C.entries.some(e=>e.exercise_id===x.id));
+    if(!PS.sel) PS.sel=new Set(withE.map(x=>x.id));
+    const n=PS.sel.size;
+    const step=(no,ttl)=>`<div class="row" style="margin-bottom:8px"><span class="stepno num">${no}</span><h3 style="font-size:15.5px">${ttl}</h3></div>`;
+    let h=`<a class="backlink" href="#file">${I.arrow} ملفي</a><h1 class="hello">حوّل ملفك لخطة</h1><p class="hello-sub">ثلاث خطوات بسيطة، والـ AI اللي بتستخدمه هو اللي بيساعدك.</p>`;
+    if(!withE.length){ el.innerHTML=h+`<div class="card empty"><div class="big">✍️</div><p>محتاجين نتيجة تمرين واحدة على الأقل في ملفك الأول.</p><a class="btn" href="#file">روح لملفي</a></div>`; return; }
+    h+=`<section class="card stepcard">${step(1,'اختار إيه يتشارك')}
+      <p class="note" style="margin:0 0 4px">انت اللي بتختار إيه يتشارك — مفيش حاجة بتتبعت من التطبيق، انت اللي بتنسخ وبتلصق.</p>
+      ${C.exs.map(x=>{ const c=C.entries.filter(e=>e.exercise_id===x.id).length; const on=PS.sel.has(x.id); return `<label class="sel ${on?'on':''} ${c?'':'off'}"><input type="checkbox" data-act="selEx" data-id="${x.id}" ${on?'checked':''} ${c?'':'disabled'}><span class="t">${esc(x.title)}</span><small class="num">${c?c+' نتيجة':'لسه فاضي'}</small></label>`; }).join('')}
+      <button type="button" class="btn block" data-act="buildPrompt" style="margin-top:14px;min-height:48px" ${n?'':'disabled'}>جهّز الطلب</button></section>`;
+    if(PS.prompt){
+      h+=`<section class="card stepcard" id="step2">${step(2,'انسخ الطلب وادّيه للـ AI بتاعك')}
+        <p class="note" style="margin:0">افتح ChatGPT أو Claude أو Gemini أو أي مساعد بتستخدمه، والصق الطلب.</p>
+        <div class="promptbox" tabindex="0" aria-label="نص الطلب">${esc(PS.prompt)}</div>
+        <button type="button" class="btn block" data-act="copyPrompt" style="min-height:48px">${I.copy} انسخ الطلب</button>
+        <p class="note" style="margin:10px 0 0">مع Claude تقدر تربط التطبيق مباشرة (قريبًا).</p></section>`;
+    }
+    if(PS.prompt){
+      h+=`<section class="card stepcard" id="step3">${step(3,'الصق الرد هنا')}
+        <div class="field"><label for="reply" class="sr">رد الـ AI</label><textarea class="textarea" id="reply" data-in-plan placeholder="الصق رد الـ AI هنا (حتى لو فيه كلام قبل الخطة وبعدها)" style="min-height:130px">${esc(PS.reply)}</textarea></div>
+        <div class="opt"><button type="button" class="btn" data-act="parseReply">اقرا الرد</button><button type="button" class="btn soft" data-act="sampleReply">جرّب برد تجريبي</button></div>
+        ${PS.err?`<div class="errbox" role="alert">${esc(PS.err)}</div>`:''}</section>`;
+    }
+    if(PS.parsed){
+      const days={}; PS.parsed.forEach(t=>(days[t.date]=days[t.date]||[]).push(t));
+      const keys=Object.keys(days).sort();
+      h+=`<section class="card stepcard" id="preview"><div class="between" style="margin-bottom:4px"><h3 style="font-size:15.5px">معاينة الخطة</h3><span class="pill ok"><span class="num">${PS.parsed.length}</span> ${taskWord(PS.parsed.length)} · <span class="num">${keys.length}</span> يوم</span></div>
+        <p class="note" style="margin:0 0 6px">شيل أي مهمة مش مناسبة بزر ✕، وبعدها أضفهم لمهامك.${PS.dropped?` (اتجاهلنا <span class="num">${PS.dropped}</span> عنصر مش مفهوم)`:''}</p>
+        ${keys.map(k=>`<div class="dayhead" style="margin-top:12px"><b>${Kit.fmtDate(k+'T12:00:00')}</b><small>${k===todayKey()?'النهارده':''}</small></div>${days[k].map(t=>`<div class="pv-task"><span style="font-size:19px">${axIcon(t.axis)}</span><div class="t">${esc(t.title)}<div class="m"><span class="num">${t.time}</span> · <span class="num">${t.minutes}</span> دقيقة · ${axName(t.axis)}</div></div><button type="button" class="xbtn" data-act="rmPlanTask" data-id="${t.uid}" aria-label="شيل المهمة: ${esc(t.title)}">${ICON.x}</button></div>`).join('')}`).join('')}
+        <button type="button" class="btn ok block" data-act="savePlan" style="margin-top:16px;min-height:50px" ${PS.parsed.length?'':'disabled'}>أضف للمهام (<span class="num">${PS.parsed.length}</span>)</button></section>`;
+    }
+    const keepY=window.scrollY; el.innerHTML=h; if(PS._scroll){ const t=document.getElementById(PS._scroll); PS._scroll=null; if(t) t.scrollIntoView({behavior:'smooth',block:'start'}); else window.scrollTo(0,keepY); } else window.scrollTo(0,keepY);
+  };
+  cur.redraw=draw; await draw();
+});
+A.plansInfo=()=>{
+  Kit.sheet(`<h3>إزاي تفتح ميزة الخطة؟</h3>
+    <p class="muted" style="margin:6px 0 12px">من غير أي ضغط — دي الطرق المتاحة، واختار اللي يناسبك وقت ما تحب:</p>
+    <div class="card" style="box-shadow:none"><b>مع أي كورس مدفوع</b><div class="note">بتاخد اشتراك مساعد التناغم مجانًا لمدة 90 يوم.</div></div>
+    <div class="card" style="box-shadow:none"><b>اشتراك ربع سنوي</b><div class="note">90 يوم، ويشمل مجتمع لقاء الروح.</div></div>
+    <div class="card" style="box-shadow:none"><b>اشتراك سنوي</b><div class="note">365 يوم، ويشمل المجتمع كمان.</div></div>
+    <p class="note" style="margin:10px 0">وفي كل الحالات ملفك وتسجيل تمارينك يفضلوا معاك.</p>
+    <div class="opt"><a class="btn" href="https://wa.me/200000000000" target="_blank" rel="noopener">تواصل معانا</a><button type="button" class="btn ghost" data-close>مش دلوقتي</button></div>`);
+};
+document.addEventListener('change',e=>{ const c=e.target; if(c.dataset&&c.dataset.act==='selEx'){ if(!PS.sel) return; c.checked?PS.sel.add(c.dataset.id):PS.sel.delete(c.dataset.id); PS.prompt=''; PS.parsed=null; PS.err=''; cur.redraw(); } });
+document.addEventListener('input',e=>{ if(e.target.hasAttribute&&e.target.hasAttribute('data-in-plan')) PS.reply=e.target.value; });
+A.selEx=()=>{}; // handled by change
+A.buildPrompt=async()=>{ const C=await load(); PS.prompt=buildPrompt(C,PS.sel); PS.parsed=null; PS.err=''; PS._scroll='step2'; await cur.redraw(); };
+A.copyPrompt=()=>Kit.copyText(PS.prompt);
+A.sampleReply=async()=>{ PS.reply=sampleReply(); PS.err=''; await cur.redraw(); await A.parseReply(); };
+A.parseReply=async()=>{
+  const ta=$('#reply'); if(ta) PS.reply=ta.value;
+  if(!PS.reply.trim()){ PS.err='الصق رد الـ AI الأول، أو جرّب الرد التجريبي.'; PS.parsed=null; await cur.redraw(); return; }
+  const r=parsePlan(PS.reply);
+  if(!r.tasks.length){ PS.err='ماقدرناش نلاقي مهام في الرد. اتأكد إن الرد فيه كتلة JSON على شكل مصفوفة، أو اطلب من الـ AI يعيد الخطة بنفس الشكل المطلوب.'; PS.parsed=null; await cur.redraw(); return; }
+  PS.err=''; PS.parsed=r.tasks; PS.dropped=r.dropped; PS._scroll='preview'; await cur.redraw();
+};
+A.rmPlanTask=async b=>{ PS.parsed=PS.parsed.filter(t=>t.uid!==b.dataset.id); await cur.redraw(); };
+A.savePlan=async b=>{
+  if(!PS.parsed||!PS.parsed.length) return; b.disabled=true;
+  const days=new Set(PS.parsed.map(t=>t.date)).size;
+  await DB.savePlan({summary:`خطة ${days} يوم — ${PS.parsed.length} مهمة`,source:'paste',tasks:PS.parsed.map(t=>({title:t.title,axis:t.axis,minutes:t.minutes,due_at:new Date(`${t.date}T${t.time}:00`).toISOString()}))});
+  const n=PS.parsed.length; PS.prompt=''; PS.reply=''; PS.parsed=null; PS.sel=null; PS.err='';
+  const C=await load(); const newB=await checkBadges(C);
+  location.hash='#tasks';
+  if(newB.includes('first_plan')) Kit.celebrate({icon:'🧭',title:'أول خطة ليك!',body:`اتضافت ${n} ${taskWord(n)} لأيامك الجاية. خطوة خطوة.`,cta:'يلا نبدأ'});
+  else if(newB.length) celebrateBadges(newB);
+  else Kit.toast(`اتضافت ${n} ${taskWord(n)} لمهامك ✓`);
+};
+
+/* ===== JOURNEY (curriculum: per lesson → records, achievements, timed practices, reminders) ===== */
+const ACADEMY='../academy/index.html';
+function achHow(a){ const h=a.how; if(h==='manual') return 'علّم عليها لما تعملها'; if(h==='course') return 'بتتفتح لما تخلّص الكورس'; if(h.entry) return 'بتتفتح لما تسجّل التمرين'; if(h.program) return 'بتتفتح لما تخلّص الممارسة'; if(h.rows) return `بتتفتح لما جدولك يوصل ${h.rows[2]}`; return ''; }
+function runInfo(C,pid){ const run=C.runs.filter(r=>r.program_id===pid&&!r.stopped_at).slice(-1)[0]; if(!run) return null; const ts=C.tasks.filter(t=>t.run_id===run.id&&!t.deleted); return {run,total:ts.length,done:ts.filter(t=>t.done_at).length}; }
+routes.journey=guard(async (el,rest)=>{
+  const draw=async ()=>{
+    const C=await load(); await shell(C);
+    const prog=new Set((await DB.progress()).map(p=>p.lesson_id));
+    const L=C.cur.lessons||[]; const A_=C.cur.achievements;
+    const lid=rest&&rest[0];
+    if(!lid){
+      const got=A_.filter(a=>C.gotAch(a.id)).length; const rems=(await DB.reminders()).filter(r=>r.on).length;
+      el.innerHTML=`<h1 class="hello">رحلتي</h1><p class="hello-sub">الكورس التأسيسي درس بدرس: اللي اتسجّل، واللي اتعمل، واللي شغال.</p>
+        <div class="card" style="display:flex;align-items:center;gap:14px">${Kit.ring(A_.length?got/A_.length:0,{size:68,stroke:6,label:`${got}/${A_.length}`})}<div style="flex:1;min-width:0"><b>إنجازاتك في الرحلة</b><div class="note">${got?`آخر واحد: ${esc((A_.find(a=>a.id===C.achs.slice(-1)[0].id)||{}).title||'')}`:'أول إنجاز مستنيك في الدرس الأول'}</div></div></div>
+        <a class="remday" href="#remember" style="margin-top:10px"><span class="ic" aria-hidden="true">🔔</span><span style="flex:1;min-width:0"><b>تذكّر</b><small><span class="num">${rems}</span> تذكير شغال، بيتفتحوا مع كل درس</small></span></a>
+        <div class="section-title">الدروس</div>
+        ${L.map(l=>{ const la=A_.filter(a=>a.lesson===l.id); const lg=la.filter(a=>C.gotAch(a.id)).length; const d=prog.has(l.id);
+          return `<a class="lrow ${d?'done':''}" href="#journey/${l.id}"><span class="no">${d?'✓':esc(l.no.split(' ')[0])}</span><span class="tt"><b>${esc(l.title)}</b><span>${esc(l.no)} · ${d?'خلّصت الدرس':'لسه'}</span></span><span class="meter">${la.length?`🏅 <span class="num">${lg}/${la.length}</span>`:''}</span></a>`; }).join('')}`;
+      return;
+    }
+    const l=L.find(x=>x.id===lid); if(!l){ location.hash='#journey'; return; }
+    const d=prog.has(l.id);
+    const exs=(l.exercises||[]).map(id=>C.exMap[id]).filter(Boolean);
+    const la=A_.filter(a=>a.lesson===l.id), pgs=C.cur.programs.filter(p=>p.lesson===l.id);
+    const allRem=C.cur.reminders.filter(r=>r.lesson===l.id); const myRem=await DB.reminders(); const remOn=id=>{ const r=myRem.find(x=>x.id===id); return r?r.on:null; };
+    el.innerHTML=`<a class="backlink" href="#journey">${I.arrow} رحلتي</a>
+      <div class="pagehead"><div class="ax" style="font-size:13px;font-weight:800">${esc(l.no.split(' ')[0])}</div><div style="min-width:0"><h1>${esc(l.title)}</h1><div class="note">${esc(l.no)} · <span class="num">${l.minutes}</span> دقيقة</div></div></div>
+      <p class="muted" style="margin:6px 2px 10px">${esc(l.body||'')}</p>
+      <div class="opt"><a class="btn ${d?'ghost':''}" href="${ACADEMY}#lesson/body/${l.id}">${d?'ارجع للدرس':'شاهد الدرس'}</a>${l.material?`<a class="btn ghost" href="${esc(l.material)}" target="_blank" rel="noopener">ملف المادة</a>`:''}</div>
+      ${exs.length?`<section class="blk"><h3>🗂 سجّل في ملفك</h3>${exs.map(x=>{ const es=C.entries.filter(e=>e.exercise_id===x.id);
+        return `<div class="exrow"><a class="main" href="#exercise/${x.id}"><span style="min-width:0"><span class="t" style="display:block">${esc(x.title)}</span><span class="m">${es.length?`<span class="num">${es.length}</span> ${es.length===1?'نتيجة':'نتايج'} · آخر مرة ${fmtShort(es[0].created_at)}`:'لسه ما سجّلتش'}</span></span></a><a class="plus" href="#log/${x.id}" aria-label="سجّل: ${esc(x.title)}">${I.plus}</a></div>`; }).join('')}</section>`:''}
+      ${pgs.length?`<section class="blk"><h3>🔁 ممارسات بمدة</h3>${pgs.map(pg=>{ const ri=runInfo(C,pg.id); const fin=ri&&ri.done===ri.total;
+        return `<div class="prog"><div class="between"><b>${esc(pg.title)}</b><span class="pill ${fin?'ok':ri?'':'mute'}">${fin?'خلّصتها':ri?`<span class="num">${ri.done}/${ri.total}</span>`:`<span class="num">${pg.days}</span> ${pg.days>10?'يوم':'أيام'}`}</span></div>
+          <div class="note">${esc(pg.how)}</div>${ri?`<div class="bar"><i style="width:${ri.done/ri.total*100}%"></i></div>`:''}
+          <div class="opt" style="margin-top:10px">${ri&&!fin?`<a class="btn soft sm" href="#tasks" style="min-height:42px">في مهامك</a><button type="button" class="btn ghost sm" data-act="stopProg" data-id="${ri.run.id}" style="min-height:42px">وقّفها</button>`:`<button type="button" class="btn sm" data-act="startProg" data-id="${pg.id}" style="min-height:42px">${fin?'ابدأها تاني':'ابدأها'}</button>`}<button type="button" class="btn ghost sm" data-act="progText" data-id="${pg.id}" style="min-height:42px">النص</button></div></div>`; }).join('')}</section>`:''}
+      ${la.length?`<section class="blk"><h3>🏅 الإنجازات</h3>${la.map(a=>{ const g=C.achs.find(x=>x.id===a.id);
+        return `<div class="ach ${g?'got':''}"><span class="ic" aria-hidden="true">${a.icon}</span><span class="t">${esc(a.title)}<small>${g?`اتعملت ${fmtShort(g.at)}`:esc(achHow(a))}</small></span>${a.how==='manual'?`<button type="button" class="btn ${g?'ghost':'soft'} sm" data-act="achToggle" data-id="${a.id}" data-on="${g?0:1}" style="min-height:40px">${g?'تراجع':'عملتها'}</button>`:''}</div>`; }).join('')}</section>`:''}
+      ${allRem.length?`<section class="blk"><h3>🔔 تذكيرات</h3>${d?allRem.map(r=>{ const on=remOn(r.id); if(on===null) return ''; return `<div class="rem ${on?'':'off'}"><span class="t"><b>${esc(r.text)}</b><small>${esc(r.sub||'')}</small></span><button type="button" class="switch ${on?'on':''}" data-act="remToggle" data-id="${r.id}" role="switch" aria-checked="${on}" aria-label="${esc(r.text)}"><i></i></button></div>`; }).join(''):`<div class="note" style="padding:6px 2px">${allRem.length} ${allRem.length>2?'تذكيرات بتتفتح':'تذكير بيتفتح'} لما تخلّص الدرس.</div>`}</section>`:''}`;
+  };
+  cur.redraw=draw; await draw();
+});
+A.achToggle=async b=>{ const on=b.dataset.on==='1'; const isNew=await DB.markAchievement(b.dataset.id,on); await cur.redraw();
+  if(on&&isNew){ const a=CUR.achievements.find(x=>x.id===b.dataset.id); const C=await load(); const more=await checkBadges(C); await cur.redraw();
+    Kit.celebrate({icon:a.icon,title:'إنجاز جديد',body:`${a.title}. ${more.length?'ومعاه: '+more.map(i=>bInfo(i).name).join('، ')+'.':'اتسجّل في رحلتك.'}`,cta:'تمام'}); } };
+A.startProg=async b=>{ const pg=CUR.programs.find(p=>p.id===b.dataset.id); const t=dayKey(new Date()), tm=dayKey(addD(new Date(),1));
+  Kit.sheet(`<h3>${esc(pg.title)}</h3><p class="note" style="margin:4px 0 12px">${esc(pg.how)} هتنزل في مهامك <span class="num">${pg.days*pg.times.length}</span> مرة.</p>
+    <div class="field"><label for="pgStart">تبدأ إمتى؟</label><select class="select" id="pgStart"><option value="${t}">النهارده</option><option value="${tm}">بكره</option></select></div>
+    ${pg.times.map((x,i)=>`<div class="field"><label for="pgT${i}">${pg.times.length>1?(i?'المرة التانية':'المرة الأولى'):'الساعة'}</label><input class="input num" type="time" id="pgT${i}" value="${x}"></div>`).join('')}
+    <div class="opt"><button type="button" class="btn" data-act="startProgGo" data-id="${pg.id}">ابدأ</button><button type="button" class="btn ghost" data-close>مش دلوقتي</button></div>`); };
+A.startProgGo=async b=>{ const pg=CUR.programs.find(p=>p.id===b.dataset.id); const times=pg.times.map((x,i)=>($(`#pgT${i}`)||{}).value||x);
+  await DB.startProgram(pg.id,{start:$('#pgStart').value,times}); Kit.closeAll(); await cur.redraw(); Kit.toast(`اتضافت لمهامك: ${pg.days} ${pg.days>10?'يوم':'أيام'} ✓`); };
+A.stopProg=async b=>{ await DB.stopProgram(b.dataset.id); await cur.redraw(); Kit.toast('وقّفناها. اللي عملته محفوظ'); };
+A.remToggle=async b=>{ await DB.toggleReminder(b.dataset.id); await cur.redraw(); };
+
+/* ===== REMEMBER («تذكّر») ===== */
+routes.remember=guard(async (el)=>{
+  const draw=async ()=>{
+    const C=await load(); await shell(C);
+    const rs=await DB.reminders(); const L=C.cur.lessons||[];
+    const locked=C.cur.reminders.length-C.cur.reminders.filter(r=>rs.some(x=>x.id===r.id)).length;
+    const notif=store.get('sm_notif')!=='0';
+    el.innerHTML=`<a class="backlink" href="#journey">${I.arrow} رحلتي</a><h1 class="hello">تذكّر</h1><p class="hello-sub">ممارسات ملهاش مدة. بتفضل معاك، وبيوصلك منها تذكير واحد في اليوم.</p>
+      <div class="card"><div class="tgl"><div><b>إشعار يومي هادي</b><div class="note">تذكير واحد في اليوم، بالدور. ولو قفلته، بيظهر لك أول ما تفتح التطبيق.</div></div><button type="button" class="switch ${notif?'on':''}" data-act="toggleNotif" role="switch" aria-checked="${notif}" aria-label="إشعار يومي"><i></i></button></div></div>
+      ${rs.length?L.filter(l=>rs.some(r=>r.lesson===l.id)).map(l=>`<div class="note" style="margin:16px 4px 2px;font-weight:700;color:var(--gold-deep)">${esc(l.no)} · ${esc(l.title)}</div>${rs.filter(r=>r.lesson===l.id).map(r=>`<div class="rem ${r.on?'':'off'}"><span class="t"><b>${esc(r.text)}</b><small>${esc(r.sub||'')}</small></span><button type="button" class="switch ${r.on?'on':''}" data-act="remToggle" data-id="${r.id}" role="switch" aria-checked="${r.on}" aria-label="${esc(r.text)}"><i></i></button></div>`).join('')}`).join('')
+        :`<div class="card empty"><div class="big">🔔</div><p>التذكيرات بتتفتح مع الدروس. خلّص الدرس الأول وهتلاقي أول تلاتة هنا.</p><a class="btn soft" href="${ACADEMY}">روح للأكاديمية</a></div>`}
+      ${locked?`<p class="note" style="margin:14px 4px">و<span class="num">${locked}</span> تذكير كمان بيتفتحوا مع الدروس الجاية.</p>`:''}`;
+  };
+  cur.redraw=draw; await draw();
+});
+
+/* ===== PROGRESS ===== */
+routes.progress=guard(async (el)=>{
+  const draw=async ()=>{
+    const C=await load(); await shell(C);
+    const w=weekWindow(C); const weekDone=w.reduce((a,x)=>a+x.done,0);
+    const vals=w.map(x=>x.done), labels=w.map(x=>DAYS_SHORT[x.d.getDay()]);
+    const axEnt=C.entries.find(e=>e.exercise_id==='ex_axes'); // latest first
+    const av=axEnt&&axEnt.data&&axEnt.data.axes;
+    const window14=weekWindow(C,14); const cnt={mind:0,heart:0,body:0,spirit:0}; window14.forEach(x=>C.on(x.k).forEach(t=>{ if(t.done_at&&cnt[t.axis]!==undefined) cnt[t.axis]++; }));
+    const mx=Math.max(1,...Object.values(cnt));
+    const tiles=[['أيام متواصلة',C.streak,'تقدّم اليوم بيحافظ عليها'],['إنجازات الرحلة',`${C.achs.length}/${C.cur.achievements.length}`,''],['مهام الأسبوع',weekDone,'اتقفلت'],['نتايج في ملفي',C.entries.length,'تمرين']];
+    const hw=C.entries.filter(e=>e.exercise_id==='ex_hawkins'&&e.data&&e.data.level).slice(0,7).reverse();
+    el.innerHTML=`<h1 class="hello">التقدّم</h1><p class="hello-sub">شوف قد إيه وصلت — من غير مقارنة بحد.</p>
+      <div class="grid2">${tiles.map(([l,v,s])=>`<div class="stat"><small>${l}</small><b class="num">${v}</b> <span class="note">${s.length>12?'':s}</span></div>`).join('')}</div>
+      <div class="section-title">مستوى وعيك (مقياس هوكنز)</div>
+      <div class="card">${hw.length?`${Kit.barChart(hw.map(e=>+e.data.level),hw.map(e=>fmtShort(e.created_at).split(' ')[0]+'/'+(new Date(e.created_at).getMonth()+1)),{height:140,max:Math.max(600,...hw.map(e=>+e.data.level))})}<div class="note" style="text-align:center">آخر قياس: <b class="num">${hw[hw.length-1].data.level}</b>${+hw[hw.length-1].data.level>=200?' · فوق خط الشجاعة (200)':''}</div>`:`<div class="empty" style="padding:10px"><p>قيس وعيك قبل الجلسة وبعدها، وهيظهر هنا بيتحرك إزاي.</p><a class="btn soft" href="#log/ex_hawkins">سجّل قياس</a></div>`}</div>
+      <div class="section-title">مهام اتقفلت — آخر 7 أيام</div>
+      <div class="card">${Kit.barChart(vals,labels,{height:130})}</div>
+      <div class="section-title">محاور حياتك</div>
+      <div class="card">${av?`<div style="display:flex;justify-content:center">${Kit.radar((DB.AXES||[]).map(a=>(av[a.id]||0)/10),(DB.AXES||[]).map(a=>a.name),230)}</div><div class="note" style="text-align:center">آخر تقييم: ${fmtShort(axEnt.created_at)}</div>`:`<div class="empty" style="padding:10px"><p>سجّل تمرين «محاور الحياة الأربعة» وهيظهر هنا شكل توازنك.</p><a class="btn soft" href="#log/ex_axes">سجّل دلوقتي</a></div>`}
+        <div class="divider"></div><div class="note" style="margin-bottom:8px;font-weight:700">توازن مهامك المنجزة (آخر 14 يوم)</div>
+        <div class="axbal">${(DB.AXES||[]).map(a=>`<div class="r"><span>${a.icon} ${a.name}</span><div class="bar"><i style="--c:${axColor(a.id)};width:${cnt[a.id]/mx*100}%"></i></div><b class="num">${cnt[a.id]}</b></div>`).join('')}</div></div>
+      <div class="section-title">الأوسمة <small class="num">${C.badges.length} / ${BADGES.length}</small></div>
+      <div class="card"><div class="badges">${BADGES.map(b=>{ const e=C.badges.find(x=>x.id===b.id); return `<button type="button" class="badge ${e?'':'locked'}" data-act="badgeInfo" data-id="${b.id}" aria-label="${esc(b.name)} — ${e?'مكتسب':'مقفول'}"><span class="b">${e?b.icon:'🔒'}</span><span>${esc(b.name)}</span></button>`; }).join('')}</div></div>`;
+  };
+  cur.redraw=draw; await draw();
+});
+A.badgeInfo=async b=>{ const C=await load(); const info=bInfo(b.dataset.id); const e=C.badges.find(x=>x.id===info.id);
+  Kit.toast(e?`${info.name}: اتفتح في ${fmtShort(e.at)}`:`${info.name}: ${info.hint}`,3200); };
+
+/* ===== ACCOUNT ===== */
+routes.account=guard(async (el)=>{
+  const draw=async ()=>{
+    const C=await load(); await shell(C); const a=C.acc;
+    const pill=C.state==='active'?'<span class="pill ok">فعّال</span>':C.state==='readonly'?'<span class="pill warn">منتهي — للقراءة</span>':'<span class="pill mute">مجاني</span>';
+    const notif=store.get('sm_notif')!=='0';
+    el.innerHTML=`<h1 class="hello">حسابي</h1><p class="hello-sub">${esc(C.me.name||'')} · <span class="num" style="display:inline-block">${esc(C.me.email||'')}</span></p>
+      <div class="card"><div class="between"><b>اشتراك مساعد التناغم</b>${pill}</div>
+        ${C.state==='active'?`<p class="muted" style="margin:8px 0 0">ساري لحد <b>${fmtDate(a.endsAt)}</b> — فاضل <b class="num">${a.daysLeft}</b> يوم.</p>`
+        :C.state==='readonly'?`<p class="muted" style="margin:8px 0 0">انتهى بتاريخ ${fmtDate(a.endsAt)}. ملفك ومهامك القديمة محفوظين وتقدر تسجّل تمارين جديدة. الخطة والمجتمع بيرجعوا مع التجديد.</p>`
+        :`<p class="muted" style="margin:8px 0 0">انت دلوقتي في المرحلة المجانية: تسجّل تمارينك وتشوف ملفك. الخطة والمهام الذكية بتتفتح مع الاشتراك.</p>`}
+        <div class="divider"></div>
+        <div class="note" style="margin-bottom:8px"><b>التجديد:</b> ربع سنوي (90 يوم) أو سنوي (365 يوم)، وكلاهما يشمل المجتمع.</div>
+        <a class="btn ${C.state==='active'?'soft':''}" href="https://wa.me/200000000000" target="_blank" rel="noopener" style="min-height:46px">تواصل للتجديد</a></div>
+      ${C.state==='active'?`<div class="card"><div class="between"><div><b>مجتمع لقاء الروح</b><div class="note">مساحة هادية مع ناس ماشيين في نفس الطريق.</div></div><a class="btn sm" href="https://chat.whatsapp.com/PLACEHOLDER" target="_blank" rel="noopener" style="min-height:44px">افتح</a></div></div>`:''}
+      <div class="card"><div class="tgl"><div><b>تذكير يومي هادي</b><div class="note">إشعار واحد في اليوم بمهامك (قريبًا).</div></div><button type="button" class="switch ${notif?'on':''}" data-act="toggleNotif" role="switch" aria-checked="${notif}" aria-label="تذكير يومي"><i></i></button></div></div>
+      <div class="section-title">الخصوصية</div>
+      <div class="card"><p class="muted" style="margin:0 0 10px">بياناتك ملكك. تقدر تاخد نسخة منها أو تمسحها وقت ما تحب.</p>
+        <div class="opt"><button type="button" class="btn soft" data-act="exportData">صدّر بياناتي</button>
+        ${delAsk==='all'?`<button type="button" class="btn danger" data-act="wipeData">أكيد، امسح كل حاجة</button><button type="button" class="btn ghost" data-act="wipeAsk" data-v="0">تراجع</button>`:`<button type="button" class="btn danger" data-act="wipeAsk" data-v="1">امسح بياناتي</button>`}</div></div>
+      ${DB.mode==='supabase'?'':`<div class="section-title">معاينة الحالات (للمراجعة فقط)</div>
+      <div class="card" style="border-style:dashed"><div class="opt">
+        <button type="button" class="btn ghost" data-act="demo" data-k="paid">مشترك فعّال</button>
+        <button type="button" class="btn ghost" data-act="demo" data-k="free">مجاني</button>
+        <button type="button" class="btn ghost" data-act="demo" data-k="expired">منتهي</button></div>
+        <button type="button" class="btn ghost block" data-act="demoReset" style="margin-top:8px">إعادة ضبط البيانات التجريبية</button></div>`}
+      ${DB.mode==='supabase'?`<button type="button" class="btn ghost block" data-act="signOut" style="margin-top:16px">تسجيل الخروج</button>`:''}`;
+  };
+  cur.redraw=draw; delAsk=null; await draw();
+});
+A.toggleNotif=async()=>{ store.set('sm_notif',store.get('sm_notif')==='0'?'1':'0'); await cur.redraw(); };
+A.demo=b=>{ try{ DB.setDemoUser(b.dataset.k); }catch(e){} };
+A.demoReset=()=>DB.resetDemo();
+A.signOut=()=>DB.signOut();
+A.wipeAsk=async b=>{ delAsk=b.dataset.v==='1'?'all':null; await cur.redraw(); };
+A.wipeData=async()=>{ const C=await load(); for(const e of C.entries) await DB.deleteEntry(e.id); for(const t of C.tasks) await DB.updateTask(t.id,{deleted:true,done_at:null}); delAsk=null; Kit.toast('اتمسحت بياناتك'); await cur.redraw(); };
+A.exportData=async()=>{
+  const C=await load();
+  const data={exported_at:new Date().toISOString(),user:{name:C.me.name,email:C.me.email},
+    entries:C.entries.map(e=>({exercise:(C.exMap[e.exercise_id]||{}).title||e.exercise_id,date:e.created_at,data:e.data})),
+    tasks:C.tasks.map(t=>({title:t.title,axis:t.axis,due_at:t.due_at,minutes:t.minutes,done_at:t.done_at})),
+    plans:C.plans.map(p=>({summary:p.summary,created_at:p.created_at})),badges:C.badges};
+  Kit.sheet(`<h3>بياناتك</h3><p class="muted" style="margin:4px 0 10px">انسخ النص ده واحتفظ بيه في مكان أمان.</p>
+    <textarea class="textarea code" id="exportJson" readonly aria-label="بياناتك بصيغة JSON" style="min-height:220px">${esc(JSON.stringify(data,null,2))}</textarea>
+    <div class="opt" style="margin-top:10px"><button type="button" class="btn" data-act="copyExport">${I.copy} نسخ</button><button type="button" class="btn ghost" data-close>إغلاق</button></div>`);
+};
+A.copyExport=()=>Kit.copyText($('#exportJson').value);
+
+/* ---------- boot ---------- */
+(async function boot(){
+  try{ const C=await load(); await shell(C); }catch(e){ console.error(e); }
+  Kit.router(routes,view,'today');
+  addEventListener('hashchange',()=>{ syncNav(); const sh=$('#kitSheet'); if(sh&&sh.classList.contains('on')){ sh.classList.remove('on'); const sc=$('#kitScrim'); if(sc) sc.classList.remove('on'); } }); syncNav();
+  $$('#nav [data-go]').forEach(()=>{});
+})();
+})();
+</script>
+</body>
+</html>
